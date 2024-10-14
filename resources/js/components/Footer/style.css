@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	.footer-component {
+		@apply container
+        flex
+        justify-center;
+	}
+}

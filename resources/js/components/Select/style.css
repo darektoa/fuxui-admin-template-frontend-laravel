@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	.select-component {
+		@apply h-auto
+        w-60
+        text-base;
+	}
+
+	.select-component__select {
+		@apply relative
+        flex
+        h-full
+        w-full
+        cursor-pointer
+        items-center
+        rounded-md
+        border
+        border-[#E5E5E5]
+        px-4
+        py-3
+        outline-none;
+	}
+
+	.select-component__select:hover {
+		@apply ring-2;
+	}
+
+	.select-component__select__cover {
+		@apply absolute
+      top-0
+      left-0
+      z-20
+      hidden
+      h-full
+      w-full
+      rounded-md
+      bg-transparent;
+	}
+
+	.select-component__select__cover--active {
+		@apply block;
+	}
+
+	.select-component__select__content {
+		@apply w-full
+        overflow-x-hidden
+        overflow-y-visible
+        text-ellipsis
+        whitespace-nowrap;
+	}
+
+	.select-component__select__content > .option-component {
+		@apply border-0
+        px-0
+        py-0;
+	}
+
+	.select-component__select > .option-list-component {
+		@apply absolute
+        top-full
+        left-0
+        w-full;
+	}
+}

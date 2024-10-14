@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	.wrapper-modal-component {
+		@apply fixed
+        top-0
+        left-0
+        z-50
+        flex
+        h-screen
+        w-screen
+        items-center
+        justify-center
+        bg-black
+        bg-opacity-20
+        transition-all
+        duration-200;
+	}
+
+	.wrapper-modal-component--hide {
+		@apply scale-0
+        opacity-0;
+	}
+
+	.modal-component {
+		@apply w-11/12
+        rounded-xl
+        bg-white;
+	}
+}

@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	.divider-component {
+		@apply w-full
+        border-t
+        border-gray-200;
+	}
+}

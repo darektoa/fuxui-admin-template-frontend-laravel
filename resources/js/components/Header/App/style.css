@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	.header-app-component {
+		@apply flex
+        w-full
+        border-gray-300
+        bg-white
+        px-0
+        py-3;
+	}
+}

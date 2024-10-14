@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	.affiliator-request-component-modal-filter {
+		@apply max-h-[90vh]
+        w-full
+        max-w-lg
+        overflow-auto
+        rounded-xl
+        p-0;
+	}
+}

@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	.option-list-component {
+		@apply relative
+            w-60
+            py-4;
+	}
+
+	.option-list-component::before {
+		content: ' ';
+		@apply absolute
+            top-3
+            z-10
+            h-1
+            w-full
+            rounded-t-md
+            border
+            border-b-0
+            border-[#E5E5E5]
+            bg-white;
+	}
+
+	.option-list-component::after {
+		content: ' ';
+		@apply absolute
+            bottom-3
+            z-10
+            h-1
+            w-full
+            rounded-b-md
+            border
+            border-t-0
+            border-[#E5E5E5]
+            bg-white;
+	}
+
+	.option-list-component > .option-component {
+		@apply border-t-0;
+	}
+
+	.option-list-component > .option-component:last-child {
+		@apply border-b-0;
+	}
+}

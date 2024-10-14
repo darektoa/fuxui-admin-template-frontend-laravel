@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	.profile-page__alert-status-component.on-review {
+		@apply bg-yellow-200
+        text-yellow-600;
+	}
+
+	.profile-page__alert-status-component.approved {
+		@apply bg-green-200
+        text-green-600;
+	}
+
+	.profile-page__alert-status-component.on-hold {
+		@apply bg-red-200
+        text-red-600;
+	}
+}
