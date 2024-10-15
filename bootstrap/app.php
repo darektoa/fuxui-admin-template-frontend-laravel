@@ -11,7 +11,7 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         using: function() {
             Route::middleware('web')
-                ->group(base_path('routes/v1/web.php'));
+                ->group(base_path('routes/web/v1.php'));
         },
     )
     ->withMiddleware(function (Middleware $middleware) {
