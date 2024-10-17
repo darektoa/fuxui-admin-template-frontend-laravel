@@ -44,16 +44,16 @@ module.exports = {
         themes: [
             {
                 dark: {
-                    ...require("daisyui/src/theming/themes")["dark"],
                     accent: "#09a711",
                     primary: "#11d118",
                     secondary: "#9ca3af",
+                    // ...require("daisyui/src/theming/themes")["dark"],
                 },
                 light: {
-                    ...require("daisyui/src/theming/themes")["light"],
                     accent: "#09a711",
                     primary: "#11d118",
                     secondary: "#9ca3af",
+                    // ...require("daisyui/src/theming/themes")["light"],
                 },
             },
         ], // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]

@@ -21,7 +21,7 @@ class AuthHelper {
         $response   = Http::acceptJson()
             ->asJson()
             ->post($endpoint, collect($crendentials)->merge([
-                'grant_type'    => 'client_credentials',
+                'grant_type'    => 'password',
                 'client_id'     => env('API_OAUTH_CLIENT_ID'),
                 'client_secret' => env('API_OAUTH_CLIENT_SECRET'),
                 'scope'         => '',
@@ -39,7 +39,7 @@ class AuthHelper {
         };
 
         $data = (object) CollectionHelper::camelKeys($response->json())->toArray();
-        Session::put("token", $data);
+        Session::put('token', $data);
 
         return $data;
     }
@@ -73,14 +73,14 @@ class AuthHelper {
         if(! AuthHelper::isLoggedIn())
             throw new ResponseException('Unauthorized', 403);
 
-        $token      = AuthHelper::accessToken();
+        $token      = AuthHelper::token();
         $endpoint   = env('API_BASE_URL') . '/profile';
-        $response   = Http::withToken(
+        $response   = Http::acceptJson()
+            ->asJson()
+            ->withToken(
                 token: $token->accessToken ?? null,
                 type: $token->tokenType ?? null,
             )
-            ->acceptJson()
-            ->asJson()
             ->get($endpoint);
 
         $response->throwIfClientError();
@@ -94,6 +94,19 @@ class AuthHelper {
 
 
     /**
+     * Get token object of authenticated user
+     *
+     * @return object|null
+     */
+    public static function token(): object | null
+    {
+        $token = Session::get("token");
+
+        return (object) $token ?? null;
+    }
+
+
+    /**
      * Get access token of authenticated user
      *
      * @return string|null
@@ -101,8 +114,8 @@ class AuthHelper {
     public static function accessToken(): string | null
     {
         $token = Session::get("token");
-    
-        return $token->accessToken;
+
+        return $token->accessToken ?? null;
     }
 
 

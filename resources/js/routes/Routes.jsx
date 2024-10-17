@@ -53,7 +53,7 @@ function AppRoutes() {
 
             <Route element={<Layout.Sidebar />}>
                 <Route
-                    path="/"
+                    path="/home"
                     element={<Home />}
                 />
 

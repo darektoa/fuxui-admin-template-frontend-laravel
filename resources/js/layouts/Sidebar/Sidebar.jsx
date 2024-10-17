@@ -4,7 +4,7 @@ import { usePage } from '@inertiajs/react';
 import React from 'react';
 import Divider from '@/components/Divider';
 import Header from '@/components/Header';
-// import imageBrandLogo from '@/assets/images/brand-logo.webp';
+import imageBrandLogo from '@/assets/images/brand-logo.svg';
 import Icon from '@/components/Icon';
 import Visibility from '@/components/Visibility';
 
@@ -15,12 +15,12 @@ function Sidebar() {
         <section className="sidebar-layout">
             <nav className="sidebar-layout__nav scrollbar-thin">
                 <figure className="sticky top-0 w-full bg-inherit px-4 py-7">
-                    {/* <img
+                    <img
                         src={imageBrandLogo}
                         alt="Brand Logo"
-                        className="w-ful mx-auto object-contain"
-                    /> */}
-                    <figcaption className="text-center text-xs">DQLab Affiliator</figcaption>
+                        className="w-ful mx-auto object-contain mb-1"
+                    />
+                    <figcaption className="text-center text-sm">Fuxui Dashboard</figcaption>
                 </figure>
 
                 <ul className="sidebar-layout__nav__menu">
@@ -34,15 +34,15 @@ function Sidebar() {
                             <span className="text-sm font-semibold">Dashboard</span>
                         </NavLink>
                     </li>
-                    <Visibility hidden={user.role.id === 3}>
+                    <Visibility>
                         <li>
                             <NavLink
                                 reloadDocument
                                 to="/affiliators/requests?orderBy=Latest"
                                 className="sidebar-layout__nav__menu__item"
                             >
-                                <Icon.Clock className="mr-3" />
-                                <span className="text-sm font-semibold">Affiiliator Request</span>
+                                <Icon.Tag className="mr-3" />
+                                <span className="text-sm font-semibold">Role</span>
                             </NavLink>
                         </li>
                     </Visibility>
@@ -52,8 +52,8 @@ function Sidebar() {
                             to="/affiliators/vouchers"
                             className="sidebar-layout__nav__menu__item"
                         >
-                            <Icon.Tag className="mr-3" />
-                            <span className="text-sm font-semibold">Vouchers</span>
+                            <Icon.Box className="mr-3" />
+                            <span className="text-sm font-semibold">Menu</span>
                         </NavLink>
                     </li>
                     <li>
@@ -63,10 +63,10 @@ function Sidebar() {
                             className="sidebar-layout__nav__menu__item"
                         >
                             <Icon.Link className="mr-3 rotate-90" />
-                            <span className="text-sm font-semibold">Promoted Products</span>
+                            <span className="text-sm font-semibold">Permission</span>
                         </NavLink>
                     </li>
-                    <Visibility hidden={user.role.id !== 2}>
+                    <Visibility>
                         <li>
                             <NavLink
                                 reloadDocument
@@ -83,7 +83,7 @@ function Sidebar() {
                 <Divider className="my-6 border-gray-800/10" />
 
                 <ul className="sidebar-layout__nav__menu">
-                    <Visibility hidden={user.role.id === 2}>
+                    <Visibility>
                         <li>
                             <NavLink
                                 reloadDocument
@@ -122,7 +122,7 @@ function Sidebar() {
                     </li>
                 </ul>
 
-                <small className="mt-auto w-full pt-12 text-center text-xs text-gray-400">Version: 3.10.6</small>
+                <small className="mt-auto w-full pt-12 text-center text-xs text-gray-400">Version: 1.0.0-Alpha</small>
             </nav>
 
             <section className="content">

@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    @font-face {
+        font-family: "Open Sans";
+        src: url("../js/assets/fonts/open-sans/OpenSans-Light.woff2") format("woff2");
+        font-weight: 300;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: "Open Sans";
+        src: url("../js/assets/fonts/open-sans/OpenSans-Regular.woff2") format("woff2");
+        font-weight: 400;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: "Open Sans";
+        src: url("../js/assets/fonts/open-sans/OpenSans-SemiBold.woff2") format("woff2");
+        font-weight: 600;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: "Open Sans";
+        src: url("../js/assets/fonts/open-sans/OpenSans-Bold.woff2") format("woff2");
+        font-weight: 700;
+        font-display: swap;
+    }
+
+    html {
+        font-family: "Open Sans", ui-sans-serif, system-ui, Arial, sans-serif,;
+        color: #000;
+        background-color: #FFF;
+        scroll-behavior: smooth;
+        scroll-padding: 2rem;
+    }
+
+    * {
+        box-sizing: border-box;
+        color: #414141;
+        /* border: 1px solid red !important; */
+    }
+}
+
+@layer components {
+    .link[href] {
+        @apply text-blue-600;
+    }
+
+    .link[href]:hover {
+        @apply underline;
+    }
+}
+
+    @layer utilities {
+        .scrollbar-thin {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(209, 213, 219, 1) transparent;
+        }
+
+        .scrollbar-thin::-webkit-scrollbar {
+            @apply w-1
+            h-1
+            bg-transparent;
+        }
+
+        .scrollbar-thin::-webkit-scrollbar-thumb {
+            @apply rounded-full
+            bg-gray-300;
+        }
+    }
