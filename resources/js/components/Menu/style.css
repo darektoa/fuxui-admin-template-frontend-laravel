@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    .menu-component {
+        @apply w-full;
+    }
+
+    .menu-component.menu :where(li:not(.menu-title) > *:not(ul, details, .menu-title, .btn)),
+    .menu-component.menu :where(li:not(.menu-title) > details > summary:not(.menu-title)) {
+        @apply mb-1
+            py-3;
+    }
+
+    .menu-component.menu li > *:not(ul,.menu-title,details,.btn),
+    .menu-component.menu :where(li:not(.menu-title) > details > summary:not(.menu-title)) {
+        @apply font-bold;
+    }
+
+    .menu-component.menu li > *:not(ul, .menu-title, details, .btn).active {
+        @apply bg-primary-500
+            text-white;
+    }
+
+    .menu-component.menu li > *:not(ul, .active, .menu-title, details, .btn),
+    .menu-component.menu li > details > summary {
+        @apply hover:bg-primary-500/10
+            hover:text-inherit
+            active:bg-primary-500
+            active:text-white;
+    }
+
+    .menu-component.menu li > details:active,
+    .menu-component.menu li > details.active {
+        @apply bg-primary-500/10
+            rounded-lg;
+    }
+}

@@ -1,11 +1,8 @@
 import './style.css';
 import { usePage } from '@inertiajs/react';
 import React, { useEffect, useMemo, useState } from 'react';
-import Alert from '@/components/Alert';
 import Card from '@/components/Card';
 import Section from '@/components/Section';
-import Visibility from '@/components/Visibility';
-import Partial from './partials';
 
 function Home() {
     const { user } = usePage().props;

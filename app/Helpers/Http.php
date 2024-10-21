@@ -19,7 +19,11 @@ class Http extends FacadesHttp
      * @return $this
      */
     protected function withAuthToken() {
-        $token = Session::get('access_token');
-        return FacadesHttp::withHeader('Authorization', "Bearer $token");
+        $token = AuthHelper::token();
+
+        return FacadesHttp::withToken(
+            token: $token->accessToken ?? null,
+            type: $token->tokenType ?? null,
+        );
     }
 }

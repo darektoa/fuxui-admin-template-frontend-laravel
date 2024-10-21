@@ -7,9 +7,15 @@ import Header from '@/components/Header';
 import imageBrandLogo from '@/assets/images/brand-logo.svg';
 import Icon from '@/components/Icon';
 import Visibility from '@/components/Visibility';
+import Item from '@/components/Menu/Item';
+import Menu from '@/components/Menu';
+import { useMatch } from 'react-router-dom';
 
 function Sidebar() {
-    const { user } = usePage().props;
+    const { user, menus } = usePage().props;
+
+
+    console.log(menus);
 
     return (
         <section className="sidebar-layout">
@@ -23,106 +29,22 @@ function Sidebar() {
                     <figcaption className="text-center text-sm">Fuxui Dashboard</figcaption>
                 </figure>
 
-                <ul className="sidebar-layout__nav__menu">
-                    <li>
-                        <NavLink
-                            reloadDocument
-                            to="/"
-                            className="sidebar-layout__nav__menu__item"
+                <Menu>
+                    {menus.map((item, index) => (
+                        <Item key={'menu-' + index}
+                            href={item?.uri}
+                            isActive={false}
+                            // items={item?.items}
                         >
-                            <Icon.Home className="mr-3" />
-                            <span className="text-sm font-semibold">Dashboard</span>
-                        </NavLink>
-                    </li>
-                    <Visibility>
-                        <li>
-                            <NavLink
-                                reloadDocument
-                                to="/affiliators/requests?orderBy=Latest"
-                                className="sidebar-layout__nav__menu__item"
-                            >
-                                <Icon.Tag className="mr-3" />
-                                <span className="text-sm font-semibold">Role</span>
-                            </NavLink>
-                        </li>
-                    </Visibility>
-                    <li>
-                        <NavLink
-                            reloadDocument
-                            to="/affiliators/vouchers"
-                            className="sidebar-layout__nav__menu__item"
-                        >
-                            <Icon.Box className="mr-3" />
-                            <span className="text-sm font-semibold">Menu</span>
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink
-                            reloadDocument
-                            to="/affiliators/promoted-products"
-                            className="sidebar-layout__nav__menu__item"
-                        >
-                            <Icon.Link className="mr-3 rotate-90" />
-                            <span className="text-sm font-semibold">Permission</span>
-                        </NavLink>
-                    </li>
-                    <Visibility>
-                        <li>
-                            <NavLink
-                                reloadDocument
-                                to="/users"
-                                className="sidebar-layout__nav__menu__item"
-                            >
-                                <Icon.Users className="mr-3" />
-                                <span className="text-sm font-semibold">Users</span>
-                            </NavLink>
-                        </li>
-                    </Visibility>
-                </ul>
+                            <Icon.Home className="size-5" />
+                            {item?.name}
+                        </Item>
+                    ))}
+                </Menu>
 
-                <Divider className="my-6 border-gray-800/10" />
-
-                <ul className="sidebar-layout__nav__menu">
-                    <Visibility>
-                        <li>
-                            <NavLink
-                                reloadDocument
-                                to="/profile"
-                                className="sidebar-layout__nav__menu__item"
-                            >
-                                <Icon.User className="mr-3" />
-                                <span className="text-sm font-semibold">Profile</span>
-                            </NavLink>
-                        </li>
-                    </Visibility>
-                    <li>
-                        <NavLink
-                            reloadDocument
-                            to="/changepassword"
-                            className="sidebar-layout__nav__menu__item"
-                        >
-                            <Icon.Key className="mr-3" />
-                            <span className="text-sm font-semibold">Change Password</span>
-                        </NavLink>
-                    </li>
-                </ul>
-
-                <Divider className="my-6 border-gray-800/10" />
-
-                <ul className="sidebar-layout__nav__menu">
-                    <li>
-                        <NavLink
-                            reloadDocument
-                            to="/sign-out"
-                            className="sidebar-layout__nav__menu__item"
-                        >
-                            <Icon.Logout className="mr-3 stroke-red-600" />
-                            <span className="text-sm font-semibold text-red-600">Sign Out</span>
-                        </NavLink>
-                    </li>
-                </ul>
-
-                <small className="mt-auto w-full pt-12 text-center text-xs text-gray-400">Version: 1.0.0-Alpha</small>
+                <small className="mt-auto w-full pt-12 text-center text-xs text-gray-400">
+                    Version: 1.0.0-Alpha
+                </small>
             </nav>
 
             <section className="content">

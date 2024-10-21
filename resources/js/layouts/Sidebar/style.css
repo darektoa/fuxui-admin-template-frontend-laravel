@@ -14,38 +14,30 @@
 	.sidebar-layout__nav {
 		@apply flex
         h-full
-        w-64
+        w-72
         shrink-0
         flex-col
         overflow-auto
         bg-inherit
-        p-5
-        pt-0;
+        pb-5;
 	}
 
-	.sidebar-layout__nav__menu {
-		/* @apply h-full; */
-	}
+    .sidemenu.menu :where(li:not(.menu-title) > *:not(ul, details, .menu-title, .btn)),
+    .sidemenu.menu :where(li:not(.menu-title) > details > summary:not(.menu-title)) {
+        @apply mb-1
+            pl-2;
+    }
 
-	.sidebar-layout__nav__menu__item,
-	.sidebar-layout__nav__menu__item--active {
-		@apply mb-1
-        flex
-        w-full
-        items-center
-        rounded-xl
-        px-4
-        py-3
-        text-blue-800
-        no-underline;
-	}
+    .sidemenu.menu li > *:not(ul, .menu-title, details, .btn).active {
+        @apply bg-primary-200;
+    }
 
-	.sidebar-layout__nav__menu__item:hover,
-	.sidebar-layout__nav__menu__item:active,
-	.sidebar-layout__nav__menu__item.active,
-	.sidebar-layout__nav__menu__item--active {
-		@apply bg-gray-400/20;
-	}
+    .sidemenu.menu li > *:not(ul, .menu-title, details, .btn),
+    .sidemenu.menu li > details > summary {
+        @apply hover:bg-primary-50
+            active:bg-primary-200
+            active:text-inherit;
+    }
 
 	.content {
 		@apply relative

@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 use App\Exceptions\ResponseException;
 use App\Services\StaticService;
+use Exception;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\{Http, Session};
 use Illuminate\Support\Facades\Auth;
@@ -65,31 +66,35 @@ class AuthHelper {
      */
     public static function user(): object | null
     {
-        $user = Session::get("user");
+        try {
+            $user = Session::get("user");
 
-        if($user != null)
-            return (object) $user;
+            if($user != null)
+                return (object) $user;
 
-        if(! AuthHelper::isLoggedIn())
-            throw new ResponseException('Unauthorized', 403);
+            if(! AuthHelper::isLoggedIn())
+                throw new ResponseException('Unauthorized', 403);
 
-        $token      = AuthHelper::token();
-        $endpoint   = env('API_BASE_URL') . '/profile';
-        $response   = Http::acceptJson()
-            ->asJson()
-            ->withToken(
-                token: $token->accessToken ?? null,
-                type: $token->tokenType ?? null,
-            )
-            ->get($endpoint);
+            $token      = AuthHelper::token();
+            $endpoint   = env('API_BASE_URL') . '/profile';
+            $response   = Http::acceptJson()
+                ->asJson()
+                ->withToken(
+                    token: $token->accessToken ?? null,
+                    type: $token->tokenType ?? null,
+                )
+                ->get($endpoint);
 
-        $response->throwIfClientError();
-        $response->throwIfServerError();
+            $response->throwIfClientError();
+            $response->throwIfServerError();
 
-        $data = $response->object()->data;
-        Session::put('user', $data);
+            $data = $response->object()->data;
+            Session::put('user', $data);
 
-        return $data;
+            return $data;
+        } catch(Exception $exception) {
+            return null;
+        }
     }
 
 

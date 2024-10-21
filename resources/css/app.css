@@ -41,7 +41,7 @@
 
     * {
         box-sizing: border-box;
-        color: #414141;
+        /* color: #414141; */
         /* border: 1px solid red !important; */
     }
 }

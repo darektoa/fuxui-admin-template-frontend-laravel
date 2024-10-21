@@ -64,7 +64,7 @@ function SignIn() {
 
                             <button
                                 type="submit"
-                                className="btn btn-ghost bg-blue-600 text-white mt-4 w-full">
+                                className="btn btn-primary text-white mt-4 w-full">
                                 Submit
                             </button>
                         </form>

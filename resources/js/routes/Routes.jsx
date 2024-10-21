@@ -57,7 +57,7 @@ function AppRoutes() {
                     element={<Home />}
                 />
 
-                <Route path="/affiliators">
+                <Route path="/roles">
                     <Route
                         index
                         element={<Affiliator />}
@@ -76,7 +76,7 @@ function AppRoutes() {
                     />
                 </Route>
 
-                <Route path="/profile">
+                <Route path="/menus">
                     <Route
                         index
                         element={<Profile />}

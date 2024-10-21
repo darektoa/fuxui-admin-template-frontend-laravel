@@ -1,10 +1,13 @@
+const { nextui } = require('@nextui-org/react');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content: [
         'resources/js/**/*.{js,jsx,ts,tsx}',
         'resources/views/**/*.blade.php',
+        './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
     ],
-    darkMode: ['selector', '[data-theme="dark"]'],
+    darkMode: ['class', 'selector', '[data-theme="dark"]'],
     theme: {
         extend: {
             backgroundImage: {
@@ -16,17 +19,17 @@ module.exports = {
             },
             colors: {
                 primary: {
-                    '50': '#e7ffe6',
-                    '100': '#cbfdca',
-                    '200': '#9cfb9b',
-                    '300': '#60f661',
-                    '400': '#20e924',
-                    '500': '#11d118',
-                    '600': '#09a711',
-                    '700': '#0c7f15',
-                    '800': '#106417',
-                    '900': '#125519',
-                    '950': '#042f0a',
+                    '50': '#eff6ff',
+                    '100': '#e0f2fe',
+                    '200': '#bae6fd',
+                    '300': '#7dd3fc',
+                    '400': '#60a5fa',
+                    '500': '#3b82f6',
+                    '600': '#2563eb',
+                    '700': '#1d4ed8',
+                    '800': '#1e40af',
+                    '900': '#1e3a8a',
+                    '950': '#172554',
                 },
             },
             maxWidth: {
@@ -39,21 +42,72 @@ module.exports = {
             },
         },
     },
-    plugins: [require('daisyui')],
+    plugins: [
+        require('daisyui'),
+        nextui({
+            prefix: "nextui", // prefix for themes variables
+            addCommonColors: false, // override common colors (e.g. "blue", "green", "pink").
+            defaultTheme: "light", // default theme from the themes object
+            defaultExtendTheme: "light", // default theme to extend on custom themes
+            layout: {}, // common layout tokens (applied to all themes)
+            themes: {
+                light: {
+                    layout: {}, // light theme layout tokens
+                    colors: {
+                        primary: {
+                            '50': '#eff6ff',
+                            '100': '#e0f2fe',
+                            '200': '#bae6fd',
+                            '300': '#7dd3fc',
+                            '400': '#60a5fa',
+                            '500': '#3b82f6',
+                            '600': '#2563eb',
+                            '700': '#1d4ed8',
+                            '800': '#1e40af',
+                            '900': '#1e3a8a',
+                            '950': '#172554',
+                            DEFAULT: '#1e40af',
+                        },
+                    }, // light theme colors
+                },
+                dark: {
+                    layout: {}, // dark theme layout tokens
+                    colors: {
+                        primary: {
+                            '50': '#eff6ff',
+                            '100': '#e0f2fe',
+                            '200': '#bae6fd',
+                            '300': '#7dd3fc',
+                            '400': '#60a5fa',
+                            '500': '#3b82f6',
+                            '600': '#2563eb',
+                            '700': '#1d4ed8',
+                            '800': '#1e40af',
+                            '900': '#1e3a8a',
+                            '950': '#172554',
+                            DEFAULT: '#1e40af',
+                        },
+                    }, // dark theme colors
+                }
+            }
+        }),
+    ],
     daisyui: {
         themes: [
             {
-                dark: {
-                    accent: "#09a711",
-                    primary: "#11d118",
-                    secondary: "#9ca3af",
-                    // ...require("daisyui/src/theming/themes")["dark"],
-                },
                 light: {
-                    accent: "#09a711",
-                    primary: "#11d118",
+                    ...require("daisyui/src/theming/themes")["light"],
+                    accent: "#1e40af",
+                    primary: "#2563eb",
                     secondary: "#9ca3af",
-                    // ...require("daisyui/src/theming/themes")["light"],
+                },
+            },
+            {
+                dark: {
+                    ...require("daisyui/src/theming/themes")["dark"],
+                    accent: "#1e40af",
+                    primary: "#2563eb",
+                    secondary: "#9ca3af",
                 },
             },
         ], // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]
