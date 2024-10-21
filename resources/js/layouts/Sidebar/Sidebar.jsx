@@ -7,13 +7,11 @@ import Header from '@/components/Header';
 import imageBrandLogo from '@/assets/images/brand-logo.svg';
 import Icon from '@/components/Icon';
 import Visibility from '@/components/Visibility';
-import Item from '@/components/Menu/Item';
 import Menu from '@/components/Menu';
 import { useMatch } from 'react-router-dom';
 
 function Sidebar() {
     const { user, menus } = usePage().props;
-
 
     console.log(menus);
 
@@ -26,19 +24,26 @@ function Sidebar() {
                         alt="Brand Logo"
                         className="w-ful mx-auto object-contain mb-1"
                     />
-                    <figcaption className="text-center text-sm">Fuxui Dashboard</figcaption>
+                    <figcaption className="text-center text-sm">
+                        Fuxui Dashboard
+                    </figcaption>
                 </figure>
 
                 <Menu>
                     {menus.map((item, index) => (
-                        <Item key={'menu-' + index}
+                        <Menu.Item
+                            key={'menu-' + index}
                             href={item?.uri}
-                            isActive={false}
-                            // items={item?.items}
+                            isActive={Boolean(useMatch(item?.uri ?? ''))}
+                            items={item?.menus?.map(menu => ({
+                                children: menu?.name,
+                                href: menu?.uri,
+                                isActive: Boolean(useMatch(menu?.uri ?? '')),
+                            }))}
                         >
-                            <Icon.Home className="size-5" />
+                            <Icon.Activity className="size-5" />
                             {item?.name}
-                        </Item>
+                        </Menu.Item>
                     ))}
                 </Menu>
 

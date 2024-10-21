@@ -20,7 +20,6 @@ class MenuService {
 
             return $data;
         } catch(Exception $e) {
-            dd($e);
             return null;
         }
     }

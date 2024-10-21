@@ -38,7 +38,7 @@ const Folder = React.forwardRef((props, ref) => {
                             href={item?.href}
                             isActive={item?.isActive}
                         >
-                            {children}
+                            {item?.children}
                         </Item>
                     ))}
                 </ul>

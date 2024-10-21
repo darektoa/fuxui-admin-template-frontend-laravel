@@ -4,8 +4,12 @@ namespace App\Http\Controllers\Web\V1\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class UserController extends Controller
 {
-    //
+    public function index()
+    {
+        return Inertia::render('Routes');
+    }
 }

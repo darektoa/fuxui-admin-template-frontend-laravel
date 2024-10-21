@@ -9,14 +9,9 @@ function User() {
         flash,
     } = usePage().props;
 
-    const [show, setShow] = useState({
-        error: flash.message || (Object.values(errors).length && flash.errors),
-        success: flash.success,
-    });
-
     return (
         <main className="flex w-full gap-6 py-6">
-            <Partial.UserList />
+            {/* <Partial.UserList />
 
             <Partial.ModalError
                 show={show.error}
@@ -28,7 +23,7 @@ function User() {
                 show={show.success}
                 data={flash.success}
                 onClose={() => setShow((states) => ({ ...states, success: false }))}
-            />
+            /> */}
         </main>
     );
 }

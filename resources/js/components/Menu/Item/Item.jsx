@@ -16,7 +16,7 @@ const Item = React.forwardRef((props, ref) => {
         ...attrs
     } = props;
 
-    if(Array.isArray(items))
+    if(Array.isArray(items) && items?.length)
         return <Folder {...props} />;
 
     return (
