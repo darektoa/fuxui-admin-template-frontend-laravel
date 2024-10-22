@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Helpers\AuthHelper;
 use App\Services\MenuService;
+use App\Services\SettingService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Inertia\Middleware;
@@ -45,6 +46,7 @@ class HandleInertiaRequests extends Middleware
             'user'          => AuthHelper::user(),
             'inputs'        => Session::getOldInput(),
             'menus'         => (new MenuService)->get(),
+            'setting'       => (new SettingService)->get(),
         ]);
     }
 }

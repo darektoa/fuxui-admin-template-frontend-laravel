@@ -9,7 +9,8 @@
 
     .menu-component.menu :where(li:not(.menu-title) > *:not(ul, details, .menu-title, .btn)),
     .menu-component.menu :where(li:not(.menu-title) > details > summary:not(.menu-title)) {
-        @apply mb-1
+        @apply rounded-medium
+            mb-1
             py-3;
     }
 

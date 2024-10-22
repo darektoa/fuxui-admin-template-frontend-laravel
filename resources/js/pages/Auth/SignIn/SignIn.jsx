@@ -6,9 +6,11 @@ import imageBrandLogo from '@/assets/images/brand-logo.svg';
 
 function SignIn() {
     const {
-        CSRF_TOKEN
+        CSRF_TOKEN,
+        setting,
     } = usePage().props;
 
+    console.log(setting);
 
     return (
         <main className="flex h-full min-h-dvh w-full flex-col items-center justify-center bg-gray-50 dark:bg-gray-900">
@@ -20,18 +22,18 @@ function SignIn() {
                             method="POST"
                             action="/sign-in">
                             <div className="mb-4 flex items-center text-2xl font-semibold text-gray-700 dark:text-gray-200">
-                                <figure className="mr-2 bg-inherit p-2">
+                                <figure className="mr-2 bg-inherit p-2 size-20">
                                     <img
-                                        src={imageBrandLogo}
+                                        src={setting?.logoUri ?? imageBrandLogo}
                                         alt="Brand Logo"
-                                        className="w-ful mx-auto object-contain mb-1"
+                                        className="w-full h-full mx-auto object-contain mb-1"
                                     />
                                 </figure>
                                 <h1 className="">
                                     Sign-in
                                     <span className="block text-sm font-normal opacity-80">
                                         <span>Welcome to </span>
-                                        <span className="text-blue-600">Fuxui Dashboard</span>
+                                        <span className="text-blue-600">{setting?.appName}</span>
                                     </span>
                                 </h1>
                             </div>

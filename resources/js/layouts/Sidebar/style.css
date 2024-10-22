@@ -22,23 +22,6 @@
         pb-5;
 	}
 
-    .sidemenu.menu :where(li:not(.menu-title) > *:not(ul, details, .menu-title, .btn)),
-    .sidemenu.menu :where(li:not(.menu-title) > details > summary:not(.menu-title)) {
-        @apply mb-1
-            pl-2;
-    }
-
-    .sidemenu.menu li > *:not(ul, .menu-title, details, .btn).active {
-        @apply bg-primary-200;
-    }
-
-    .sidemenu.menu li > *:not(ul, .menu-title, details, .btn),
-    .sidemenu.menu li > details > summary {
-        @apply hover:bg-primary-50
-            active:bg-primary-200
-            active:text-inherit;
-    }
-
 	.content {
 		@apply relative
         z-10

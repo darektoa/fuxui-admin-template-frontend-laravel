@@ -30,6 +30,7 @@ module.exports = {
                     '800': '#1e40af',
                     '900': '#1e3a8a',
                     '950': '#172554',
+                    DEFAULT: '#3b82f6',
                 },
             },
             maxWidth: {
@@ -66,7 +67,9 @@ module.exports = {
                             '800': '#1e40af',
                             '900': '#1e3a8a',
                             '950': '#172554',
-                            DEFAULT: '#1e40af',
+                            foreground: '#fff',
+                            background: '#3b82f6',
+                            DEFAULT: '#3b82f6',
                         },
                     }, // light theme colors
                 },

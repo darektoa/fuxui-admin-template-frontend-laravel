@@ -3,6 +3,8 @@ import Folder from '../Folder';
 import React from 'react';
 import Str from '@/utilities/StringHelper';
 import Visibility from '../../Visibility';
+import Ripple from '../../Ripple';
+import { Button } from '@nextui-org/react';
 
 const Item = React.forwardRef((props, ref) => {
     const {
@@ -21,16 +23,19 @@ const Item = React.forwardRef((props, ref) => {
 
     return (
         <Visibility hidden={hidden}>
-            <li {...attrs}
-                ref={ref}
-                className={Str.joinClassName('menu-item-component', className, classNames?.base)}
-            >
-                <a href={href}
-                    className={Str.joinClassName(classNames?.link, isActive && 'active')}
+            <Ripple>
+                <li {...attrs}
+                    ref={ref}
+                    className={Str.joinClassName('menu-item-component tap', className, classNames?.base)}
                 >
-                    { children }
-                </a>
-            </li>
+                    <a href={href}
+                        className={Str.joinClassName(classNames?.link, isActive && 'active')}
+                    >
+                        { children }
+                    </a>
+
+                </li>
+            </Ripple>
         </Visibility>
     );
 });
