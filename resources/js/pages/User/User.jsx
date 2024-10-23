@@ -2,6 +2,7 @@ import "./style.css";
 import { usePage } from "@inertiajs/react";
 import React, { useState } from "react";
 import Icon from "@/components/Icon";
+import Ripple from "@/components/Ripple";
 import {
     Table,
     TableHeader,
@@ -18,6 +19,9 @@ import {
 
 function User() {
     const { users } = usePage().props;
+    const columns = [
+
+    ]
 
     return (
         <main className="flex flex-col w-full gap-6 py-6">
@@ -27,10 +31,11 @@ function User() {
                 <BreadcrumbItem>Users</BreadcrumbItem>
             </Breadcrumbs>
 
-            <div className="w-full flex mb-4">
-                <Button color="primary" endContent={<Icon.Plus />}>
+            <div className="w-full flex">
+                <Button color="primary" endContent={<Icon.FeatherIcon.Plus />}>
                     Add New
                 </Button>
+                <Ripple></Ripple>
             </div>
 
             <Table

@@ -13,8 +13,6 @@ import { useMatch } from 'react-router-dom';
 function Sidebar() {
     const { user, menus } = usePage().props;
 
-    console.log(menus);
-
     return (
         <section className="sidebar-layout">
             <nav className="sidebar-layout__nav scrollbar-thin">
@@ -41,7 +39,7 @@ function Sidebar() {
                                 isActive: Boolean(useMatch(menu?.uri ?? '')),
                             }))}
                         >
-                            <Icon.Activity className="size-5" />
+                            <Icon.FeatherIcon.Activity className="size-5" />
                             {item?.name}
                         </Menu.Item>
                     ))}

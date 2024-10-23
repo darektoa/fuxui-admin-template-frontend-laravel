@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 @layer components {
-    .icon-component {
-        @apply aspect-square
+	.icon-component {
+		@apply aspect-square
         h-6
         w-6
         bg-contain
         bg-no-repeat;
-    }
+	}
 }
