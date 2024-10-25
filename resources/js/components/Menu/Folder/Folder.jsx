@@ -2,9 +2,11 @@ import './style.css';
 import Item from '../Item';
 import React from 'react';
 import Str from '@/utilities/StringHelper';
+import Ripple from '@/components/Ripple';
 
 const Folder = React.forwardRef((props, ref) => {
     const {
+        itemAttributeMaps,
         children,
         className,
         classNames,
@@ -12,6 +14,16 @@ const Folder = React.forwardRef((props, ref) => {
         items,
         ...attrs
     } = props;
+
+    const {
+        children: childrenKey = 'children',
+        className: classNameKey = 'className',
+        classNames: classNamesKey = 'classNames',
+        isActive: isActiveKey = 'isActive',
+        items: itemsKey = 'items',
+        itemAttributeMaps: itemAttributeMapsKey = 'itemAttributeMaps',
+        href: hrefKey = 'href',
+    } = itemAttributeMaps ?? {};
 
     const isChildActive = items.some(item => item.isActive);
 
@@ -24,21 +36,25 @@ const Folder = React.forwardRef((props, ref) => {
                 className={Str.joinClassName(classNames?.details, (isActive || isChildActive) && 'active')}
                 open={isChildActive}
             >
-                <summary className={classNames?.summary}>
-                    {children}
-                </summary>
+                <Ripple>
+                    <summary className={classNames?.summary}>
+                        {children}
+                    </summary>
+                </Ripple>
 
                 <ul className={classNames?.list}>
                     {items?.map((item, index) => (
                         <Item
                             {...item}
                             key={`menu-folder-${index}`}
-                            className={item?.className}
-                            classNames={item?.classNames}
-                            href={item?.href}
-                            isActive={item?.isActive}
+                            className={item?.[classNameKey]}
+                            classNames={item?.[classNamesKey]}
+                            href={item?.[hrefKey]}
+                            isActive={item?.[isActiveKey]}
+                            items={item?.[itemsKey]}
+                            itemAttributeMaps={item?.[itemAttributeMapsKey] ?? itemAttributeMaps}
                         >
-                            {item?.children}
+                            {item?.[childrenKey]}
                         </Item>
                     ))}
                 </ul>

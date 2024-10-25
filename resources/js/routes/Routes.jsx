@@ -7,6 +7,7 @@ import Maintenance from '@/pages/Maintenance';
 import Profile from '@/pages/Profile';
 import User from '@/pages/User';
 import ChangePassword from '@/pages/ChangePassword';
+import Content from '@/pages/Content';
 
 function AppRoutes() {
     return (
@@ -42,6 +43,11 @@ function AppRoutes() {
             */}
             <Route element={<Layout.Sidebar />}>
                 <Route path="/home" element={<Home />} />
+
+                <Route path="/contents">
+                    <Route index element={<Content />} />
+                    <Route path="content/:contentId" element={<Content />} />
+                </Route>
 
                 <Route path="/menus">
                     <Route index element={<User />} />

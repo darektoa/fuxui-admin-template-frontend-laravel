@@ -1,10 +1,8 @@
 import './style.css';
-import Folder from '../Folder';
 import React from 'react';
 import Str from '@/utilities/StringHelper';
 import Visibility from '../../Visibility';
 import Ripple from '../../Ripple';
-import { Button } from '@nextui-org/react';
 
 const Item = React.forwardRef((props, ref) => {
     const {
@@ -15,18 +13,16 @@ const Item = React.forwardRef((props, ref) => {
         href,
         isActive,
         items,
+        itemAttributeMaps,
         ...attrs
     } = props;
-
-    if(Array.isArray(items) && items?.length)
-        return <Folder {...props} />;
 
     return (
         <Visibility hidden={hidden}>
             <Ripple>
                 <li {...attrs}
                     ref={ref}
-                    className={Str.joinClassName('menu-item-component tap', className, classNames?.base)}
+                    className={Str.joinClassName('menu-item-component', className, classNames?.base)}
                 >
                     <a href={href}
                         className={Str.joinClassName(classNames?.link, isActive && 'active')}

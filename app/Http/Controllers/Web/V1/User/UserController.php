@@ -26,7 +26,7 @@ class UserController extends Controller
                 'users'
             ));
         } catch (Exception $e) {
-            return null;
+            return redirect()->route('sign-in.index');;
         }
     }
 }

@@ -28,11 +28,12 @@
     .menu-component.menu li > details > summary {
         @apply hover:bg-primary-500/10
             hover:text-inherit
-            active:bg-primary-500
-            active:text-white;
+            active:bg-primary-500/10
+            active:text-inherit
+            focus:bg-primary-500/10
+            focus:text-inherit;
     }
 
-    .menu-component.menu li > details:active,
     .menu-component.menu li > details.active {
         @apply bg-primary-500/10
             rounded-lg;

@@ -29,7 +29,7 @@ function Sidebar() {
 
                 <Menu>
                     {menus.map((item, index) => (
-                        <Menu.Item
+                        <Menu.Items
                             key={'menu-' + index}
                             href={item?.uri}
                             isActive={Boolean(useMatch(item?.uri ?? ''))}
@@ -41,7 +41,7 @@ function Sidebar() {
                         >
                             <Icon.FeatherIcon.Activity className="size-5" />
                             {item?.name}
-                        </Menu.Item>
+                        </Menu.Items>
                     ))}
                 </Menu>
 
