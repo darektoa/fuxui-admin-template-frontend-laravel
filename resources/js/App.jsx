@@ -13,7 +13,7 @@ createInertiaApp({
         <NextUIProvider>
             <BrowserRouter>
                 <App {...props} />
-            </BrowserRouter>,
+            </BrowserRouter>
         </NextUIProvider>
     ),
 });

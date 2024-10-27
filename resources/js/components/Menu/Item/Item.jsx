@@ -1,4 +1,5 @@
 import './style.css';
+import { Link } from 'react-router-dom';
 import React from 'react';
 import Str from '@/utilities/StringHelper';
 import Visibility from '../../Visibility';
@@ -12,24 +13,39 @@ const Item = React.forwardRef((props, ref) => {
         hidden,
         href,
         isActive,
-        items,
-        itemAttributeMaps,
+        itemObject,
+        onClick,
+        reload,
         ...attrs
     } = props;
 
-    return (
-        <Visibility hidden={hidden}>
-            <Ripple>
-                <li {...attrs}
-                    ref={ref}
-                    className={Str.joinClassName('menu-item-component', className, classNames?.base)}
-                >
-                    <a href={href}
-                        className={Str.joinClassName(classNames?.link, isActive && 'active')}
-                    >
-                        { children }
-                    </a>
+    const getAttr = (attrName) => {
+        const attr = props?.[attrName];
 
+        if(typeof attr === 'function') return attr(itemObject);
+        else return attr;
+    };
+
+    return (
+        <Visibility hidden={getAttr('hidden')}>
+            <Ripple>
+                <li
+                    ref={ref}
+                    onClick={(event) => onClick?.(event, itemObject)}
+                    className={Str.joinClassName(
+                        'menu-item-component',
+                        getAttr('className'),
+                        getAttr('classNames')?.base
+                    )}
+                >
+                    <Link reloadDocument={getAttr('reload')} to={getAttr('href')}
+                        className={Str.joinClassName(
+                            getAttr('classNames')?.link,
+                            getAttr('isActive') && 'active'
+                        )}
+                    >
+                        { getAttr('children') }
+                    </Link>
                 </li>
             </Ripple>
         </Visibility>

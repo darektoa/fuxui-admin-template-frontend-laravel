@@ -18,7 +18,7 @@ class ContentController extends Controller
         try {
             $response = Http::withAuthToken()
                 ->acceptJson()
-                ->get(env('API_BASE_URL') . '/contents');
+                ->get(env('API_BASE_URL') . '/contents/directories');
 
             $response->throwIfClientError();
             $response->throwIfServerError();
@@ -38,7 +38,23 @@ class ContentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $response = Http::withAuthToken()
+                ->acceptJson()
+                ->withBody($request->toArray())
+                ->post(env('API_BASE_URL') . '/contents');
+
+            $response->throwIfClientError();
+            $response->throwIfServerError();
+
+            $contents = $response->object()->data;
+
+            return Inertia::render('Routes', compact(
+                'contents'
+            ));
+        } catch (Exception $e) {
+            return redirect()->route('sign-in.index');
+        }
     }
 
     /**
@@ -46,7 +62,22 @@ class ContentController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try {
+            $response = Http::withAuthToken()
+                ->acceptJson()
+                ->get(env('API_BASE_URL') . '/contents/directories');
+
+            $response->throwIfClientError();
+            $response->throwIfServerError();
+
+            $contents = $response->object()->data;
+
+            return Inertia::render('Routes', compact(
+                'contents'
+            ));
+        } catch (Exception $e) {
+            return redirect()->route('sign-in.index');
+        }
     }
 
     /**
@@ -57,9 +88,9 @@ class ContentController extends Controller
         try {
             $response = Http::withAuthToken()
                 ->acceptJson()
-                ->post(env('API_BASE_URL') . "/contents/$id", [
+                ->post(env('API_BASE_URL') . "/contents/$id", array_merge($request->toArray(), [
                     '_method'   => 'PUT',
-                ]);
+                ]));
 
             $response->throwIfClientError();
             $response->throwIfServerError();

@@ -7,7 +7,7 @@
         @apply w-full;
     }
 
-    .menu-component.menu :where(li:not(.menu-title) > *:not(ul, details, .menu-title, .btn)),
+    .menu-component.menu :where(li:not(.menu-title) > *:not(ul, details, .menu-title, .btn))
     .menu-component.menu :where(li:not(.menu-title) > details > summary:not(.menu-title)) {
         @apply rounded-medium
             mb-1
@@ -16,7 +16,8 @@
 
     .menu-component.menu li > *:not(ul,.menu-title,details,.btn),
     .menu-component.menu :where(li:not(.menu-title) > details > summary:not(.menu-title)) {
-        @apply font-bold;
+        @apply mb-1
+            font-bold;
     }
 
     .menu-component.menu li > *:not(ul, .menu-title, details, .btn).active {
@@ -35,7 +36,8 @@
     }
 
     .menu-component.menu li > details.active {
-        @apply bg-primary-500/10
+        @apply mb-1
+            bg-primary-500/10
             rounded-lg;
     }
 }

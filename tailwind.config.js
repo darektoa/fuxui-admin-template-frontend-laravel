@@ -11,7 +11,7 @@ module.exports = {
     theme: {
         extend: {
             backgroundImage: {
-                'gradient-primary': 'linear-gradient(135deg, rgba(12, 127, 22, var(--tw-bg-opacity)) 0%, rgba(9, 167, 17, var(--tw-bg-opacity)) 55%, rgba(17, 209, 23, var(--tw-bg-opacity)) 100%)',
+                'gradient-primary': 'linear-gradient(135deg, rgba(29, 78, 216, var(--tw-bg-opacity)) 0%, rgba(37, 99, 235, var(--tw-bg-opacity)) 55%, rgba(59, 130, 246, var(--tw-bg-opacity)) 100%)',
             },
             borderRadius: {
                 '4xl': '36px',

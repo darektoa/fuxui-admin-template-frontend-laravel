@@ -1,65 +1,87 @@
 import './style.css';
-import Item from '../Item';
+import Folders from '../Folders';
+import Items from '../Items';
 import React from 'react';
-import Str from '@/utilities/StringHelper';
 import Ripple from '@/components/Ripple';
+import Str from '@/utilities/StringHelper';
+import Visibility from '../../Visibility';
 
 const Folder = React.forwardRef((props, ref) => {
     const {
-        itemAttributeMaps,
+        attributeMaps: AM,
         children,
         className,
         classNames,
+        data,
+        filter,
+        folderObject,
+        itemFilter,
+        hidden,
+        href,
         isActive,
         items,
+        itemAttributeMaps,
+        onClick,
+        reload,
         ...attrs
     } = props;
 
-    const {
-        children: childrenKey = 'children',
-        className: classNameKey = 'className',
-        classNames: classNamesKey = 'classNames',
-        isActive: isActiveKey = 'isActive',
-        items: itemsKey = 'items',
-        itemAttributeMaps: itemAttributeMapsKey = 'itemAttributeMaps',
-        href: hrefKey = 'href',
-    } = itemAttributeMaps ?? {};
+    const getAttr = (attrName) => {
+        const attr = props?.[attrName];
 
-    const isChildActive = items.some(item => item.isActive);
+        if(typeof attr === 'function') return attr(folderObject);
+        else return attr;
+    };
+
+    const isChildActive = items?.some((item) => (
+        typeof isActive == 'function' ? isActive?.(item) : Boolean(isActive)
+    ));
 
     return (
-        <li {...attrs}
-            ref={ref}
-            className={Str.joinClassName('menu-folder-component', className, classNames?.base)}
-        >
-            <details
-                className={Str.joinClassName(classNames?.details, (isActive || isChildActive) && 'active')}
-                open={isChildActive}
+        <Visibility hidden={getAttr('hidden')}>
+            <li {...attrs}
+                ref={ref}
+                className={Str.joinClassName(
+                    'menu-folder-component',
+                    getAttr('className'),
+                    getAttr('classNames')?.base
+                )}
             >
-                <Ripple>
-                    <summary className={classNames?.summary}>
-                        {children}
-                    </summary>
-                </Ripple>
-
-                <ul className={classNames?.list}>
-                    {items?.map((item, index) => (
-                        <Item
-                            {...item}
-                            key={`menu-folder-${index}`}
-                            className={item?.[classNameKey]}
-                            classNames={item?.[classNamesKey]}
-                            href={item?.[hrefKey]}
-                            isActive={item?.[isActiveKey]}
-                            items={item?.[itemsKey]}
-                            itemAttributeMaps={item?.[itemAttributeMapsKey] ?? itemAttributeMaps}
+                <details
+                    open={isChildActive}
+                    className={Str.joinClassName(
+                        getAttr('classNames')?.details,
+                        (getAttr('isActive') || isChildActive) && 'active'
+                    )}
+                >
+                    <Ripple>
+                        <summary
+                            className={getAttr('classNames')?.summary}
+                            onClick={(event) => {onClick?.(event, folderObject)}}
                         >
-                            {item?.[childrenKey]}
-                        </Item>
-                    ))}
-                </ul>
-            </details>
-        </li>
+                            {getAttr('children')}
+                        </summary>
+                    </Ripple>
+
+                    <ul className={getAttr('classNames')?.list}>
+                        <Folders
+                            {...props}
+                            data={filter ? data?.filter(filter) : data}
+                            attributeMaps={AM}
+                            isActive={isActive}
+                            itemAttributeMaps={itemAttributeMaps}
+                        />
+
+                        <Items
+                            {...props}
+                            data={itemFilter ? items?.filter(itemFilter) : items}
+                            attributeMaps={itemAttributeMaps}
+                            isActive={isActive}
+                        />
+                    </ul>
+                </details>
+            </li>
+        </Visibility>
     );
 });
 

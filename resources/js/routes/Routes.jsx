@@ -46,7 +46,7 @@ function AppRoutes() {
 
                 <Route path="/contents">
                     <Route index element={<Content />} />
-                    <Route path="content/:contentId" element={<Content />} />
+                    <Route path=":contentId" element={<Content />} />
                 </Route>
 
                 <Route path="/menus">

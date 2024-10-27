@@ -1,14 +1,14 @@
 import './style.css';
-import React, { cloneElement, isValidElement, useEffect, useRef } from 'react';
+import React, { cloneElement, isValidElement, useRef } from 'react';
 import Str from '@/utilities/StringHelper';
 
 const Ripple = ({ children }) => {
     const childrenRef = useRef(null);
 
-    useEffect(() => {
-        console.log(children)
-    }, []);
-
+    const onClickHandle = (event) => {
+        ripple(event);
+        children?.props?.onClick?.(event);
+    }
 
     if(! isValidElement(children)) return (
         <div ref={childrenRef} onClick={ripple}>
@@ -18,7 +18,7 @@ const Ripple = ({ children }) => {
 
     return cloneElement(children, {
         ref: childrenRef,
-        onClick: ripple,
+        onClick: onClickHandle,
         className: Str.joinClassName("rippleParent", children?.props?.className),
     });
 }

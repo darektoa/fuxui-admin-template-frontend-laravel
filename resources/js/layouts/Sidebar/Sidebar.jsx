@@ -8,10 +8,16 @@ import imageBrandLogo from '@/assets/images/brand-logo.svg';
 import Icon from '@/components/Icon';
 import Visibility from '@/components/Visibility';
 import Menu from '@/components/Menu';
-import { useMatch } from 'react-router-dom';
+import { matchPath, useMatch, useLocation } from 'react-router-dom';
 
 function Sidebar() {
     const { user, menus } = usePage().props;
+    const { pathname } = useLocation();
+
+    const isActive = (path, pathname) => (
+        path &&
+        matchPath(path, pathname)
+    )
 
     return (
         <section className="sidebar-layout">
@@ -28,21 +34,22 @@ function Sidebar() {
                 </figure>
 
                 <Menu>
-                    {menus.map((item, index) => (
-                        <Menu.Items
-                            key={'menu-' + index}
-                            href={item?.uri}
-                            isActive={Boolean(useMatch(item?.uri ?? ''))}
-                            items={item?.menus?.map(menu => ({
-                                children: menu?.name,
-                                href: menu?.uri,
-                                isActive: Boolean(useMatch(menu?.uri ?? '')),
-                            }))}
-                        >
-                            <Icon.FeatherIcon.Activity className="size-5" />
-                            {item?.name}
-                        </Menu.Items>
-                    ))}
+                    <Menu.Folders
+                        data={menus}
+                        filter={(item) => item?.uri == null}
+                        isActive={(item) => isActive(item?.uri, pathname)}
+                        itemFilter={(item) => item?.uri != null}
+                        reload={true}
+                        attributeMaps={{
+                            children: 'name',
+                            data: 'menus',
+                            items: 'menus',
+                        }}
+                        itemAttributeMaps={{
+                            children: 'name',
+                            href: 'uri',
+                        }}
+                    />
                 </Menu>
 
                 <small className="mt-auto w-full pt-12 text-center text-xs text-gray-400">
