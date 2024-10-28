@@ -1,18 +1,23 @@
 import './style.css';
 import { NavLink, Outlet } from 'react-router-dom';
+import { matchPath, useMatch, useLocation } from 'react-router-dom';
+import { useFavicon, useWebTitle } from '@/hooks';
 import { usePage } from '@inertiajs/react';
-import React from 'react';
 import Divider from '@/components/Divider';
 import Header from '@/components/Header';
-import imageBrandLogo from '@/assets/images/brand-logo.svg';
 import Icon from '@/components/Icon';
-import Visibility from '@/components/Visibility';
+import imageBrandLogo from '@/assets/images/brand-logo.svg';
 import Menu from '@/components/Menu';
-import { matchPath, useMatch, useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import Visibility from '@/components/Visibility';
 
 function Sidebar() {
-    const { user, menus } = usePage().props;
+    const { appContents, user, menus } = usePage().props;
     const { pathname } = useLocation();
+
+    useWebTitle(appContents['appWebTitle']?.value);
+    useFavicon(appContents['appFavicon']?.value);
+    console.log(appContents)
 
     const isActive = (path, pathname) => (
         path &&
@@ -24,12 +29,12 @@ function Sidebar() {
             <nav className="sidebar-layout__nav scrollbar-thin">
                 <figure className="sticky top-0 w-full bg-inherit px-4 py-7">
                     <img
-                        src={imageBrandLogo}
+                        src={appContents['appLogo']?.value}
                         alt="Brand Logo"
                         className="w-ful mx-auto object-contain mb-1"
                     />
                     <figcaption className="text-center text-sm">
-                        Fuxui Dashboard
+                        {appContents['appName']?.value}
                     </figcaption>
                 </figure>
 

@@ -26,13 +26,27 @@ function App(props) {
                         </a>
                     </li> */}
                     <li className="ml-auto">
-                        <a
-                            href="#profile"
-                            className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-accent text-sm font-bold !text-white"
-                        >
-                            {/* <img src="" alt=" " /> */}
-                            A
-                        </a>
+                        <ul class="menu lg:menu-horizontal">
+                            <li>
+                                <details>
+                                    <summary>
+                                        <button
+                                            className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-accent text-sm font-bold !text-white bg-primary-200"
+                                        >
+                                            {/* <img src="" alt=" " /> */}
+                                            A
+                                        </button>
+                                    </summary>
+                                    <ul className="w-40 right-0 z-50">
+                                        <li>
+                                            <a className="text-red-600" href="/sign-out">
+                                                Sign Out
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </details>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </nav>

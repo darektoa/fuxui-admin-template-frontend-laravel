@@ -8,6 +8,7 @@ Route::redirect('/', '/sign-in');
 
 Route::resource('sign-in', Auth\SignInController::class)->only(['index', 'store']);
 Route::resource('sign-out', Auth\SignOutController::class)->only(['delete']);
+Route::get('sign-out', [Auth\SignOutController::class, 'destroy']);
 Route::resource('sign-up', Auth\SignUpController::class)->only(['index', 'store']);
 
 Route::prefix('/menus')->name('menus.')->group(function() {

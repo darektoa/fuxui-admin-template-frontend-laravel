@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Helpers\AuthHelper;
+use App\Services\ContentService;
 use App\Services\MenuService;
 use App\Services\SettingService;
 use Illuminate\Http\Request;
@@ -47,6 +48,7 @@ class HandleInertiaRequests extends Middleware
             'inputs'        => Session::getOldInput(),
             'menus'         => (new MenuService)->get(),
             'setting'       => (new SettingService)->get(),
+            'appContents'   => (new ContentService)->get(new Request(['keyBy' => 'codename'])),
         ]);
     }
 }

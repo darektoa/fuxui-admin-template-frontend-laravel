@@ -6,6 +6,7 @@ import imageBrandLogo from '@/assets/images/brand-logo.svg';
 
 function SignIn() {
     const {
+        appContents,
         CSRF_TOKEN,
         setting,
     } = usePage().props;
@@ -24,7 +25,7 @@ function SignIn() {
                             <div className="mb-4 flex items-center text-2xl font-semibold text-gray-700 dark:text-gray-200">
                                 <figure className="mr-2 bg-inherit p-2 size-20">
                                     <img
-                                        src={setting?.logoUri ?? imageBrandLogo}
+                                        src={appContents['appLogo']?.value}
                                         alt="Brand Logo"
                                         className="w-full h-full mx-auto object-contain mb-1"
                                     />
@@ -32,8 +33,7 @@ function SignIn() {
                                 <h1 className="">
                                     Sign-in
                                     <span className="block text-sm font-normal opacity-80">
-                                        <span>Welcome to </span>
-                                        <span className="text-blue-600">{setting?.appName}</span>
+                                        <span>{appContents['appTagline']?.value}</span>
                                     </span>
                                 </h1>
                             </div>

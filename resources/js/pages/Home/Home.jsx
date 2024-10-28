@@ -5,7 +5,7 @@ import Card from '@/components/Card';
 import Section from '@/components/Section';
 
 function Home() {
-    const { user } = usePage().props;
+    const { user, contents } = usePage().props;
 
     return (
         <main className="flex w-full flex-col py-6">
