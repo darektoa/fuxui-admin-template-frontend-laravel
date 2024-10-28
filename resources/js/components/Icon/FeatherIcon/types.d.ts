@@ -6,6 +6,7 @@ export type IconProps = React.HTMLAttributes<Element> & {
 
 export interface IconComponent extends React.FC<IconProps> {
     Activity: React.FC;
+    AlignLeft: React.FC;
     Book: React.FC;
     Bookmark: React.FC;
     BookOpen: React.FC;
@@ -18,11 +19,14 @@ export interface IconComponent extends React.FC<IconProps> {
     Clock: React.FC;
     Copy: React.FC;
     Cross: React.FC;
+    Droplet: React.FC;
     Edit: React.FC;
     ExternalLink: React.FC;
     Eye: React.FC;
     Filter: React.FC;
+    Hash: React.FC;
     Home: React.FC;
+    Image: React.FC;
     Icon: React.FC;
     Key: React.FC;
     Link: React.FC;
@@ -32,6 +36,7 @@ export interface IconComponent extends React.FC<IconProps> {
     Search: React.FC;
     Tag: React.FC;
     Trash: React.FC;
+    Type: React.FC;
     User: React.FC;
     Users: React.FC;
 }

@@ -46,6 +46,7 @@ function useForm(initialValues = {}) {
         initialValues,
         onChanged,
         onSubmitted,
+        setValues,
         values,
     };
 }

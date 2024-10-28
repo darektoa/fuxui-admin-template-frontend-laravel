@@ -31,12 +31,13 @@
         flex-col
         items-start
         justify-start
-        bg-gray-50;
+        bg-gray-50
+        overflow-y-auto;
 	}
 
 	.content__body {
 		@apply w-full
-        overflow-auto
+        h-auto
         px-6
         pb-10;
 	}

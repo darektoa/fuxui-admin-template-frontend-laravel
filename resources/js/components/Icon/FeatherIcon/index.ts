@@ -1,4 +1,5 @@
 import Activity from './Activity';
+import AlignLeft from './AlignLeft';
 import Book from './Book';
 import Bookmark from './Bookmark';
 import BookOpen from './BookOpen';
@@ -11,11 +12,14 @@ import Clipboard from './Clipboard';
 import Clock from './Clock';
 import Copy from './Copy';
 import Cross from './Cross';
+import Droplet from './Droplet';
 import Edit from './Edit';
 import ExternalLink from './ExternalLink';
 import Eye from './Eye';
 import Filter from './Filter';
+import Hash from './Hash';
 import Home from './Home';
+import Image from './Image';
 import Info from './Info';
 import Key from './Key';
 import Link from './Link';
@@ -25,11 +29,13 @@ import RefreshCw from './RefreshCw';
 import Search from './Search';
 import Tag from './Tag';
 import Trash from './Trash';
+import Type from './Type';
 import User from './User';
 import Users from './Users';
 
 const FeatherIcon = {
     Activity,
+    AlignLeft,
     Book,
     Bookmark,
     BookOpen,
@@ -42,11 +48,14 @@ const FeatherIcon = {
     Clock,
     Copy,
     Cross,
+    Droplet,
     Edit,
     ExternalLink,
     Eye,
     Filter,
+    Hash,
     Home,
+    Image,
     Info,
     Key,
     Link,
@@ -56,6 +65,7 @@ const FeatherIcon = {
     Search,
     Tag,
     Trash,
+    Type,
     User,
     Users,
 };

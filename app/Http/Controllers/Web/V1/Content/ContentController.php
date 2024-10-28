@@ -86,8 +86,17 @@ class ContentController extends Controller
     public function update(Request $request, string $id)
     {
         try {
+            $valueFile = $request->file('value');
             $response = Http::withAuthToken()
                 ->acceptJson()
+                ->asMultipart()
+                ->when($valueFile && $valueFile->isReadable(), fn($http) => (
+                    $http->attach(
+                        'value',
+                        $valueFile->getContent(),
+                        $valueFile->getClientOriginalName(),
+                    )
+                ))
                 ->post(env('API_BASE_URL') . "/contents/$id", array_merge($request->toArray(), [
                     '_method'   => 'PUT',
                 ]));
@@ -97,6 +106,7 @@ class ContentController extends Controller
 
             return back();
         } catch(Exception $e) {
+            dd($e);
             return redirect()->route('sign-in.index');
         }
     }
