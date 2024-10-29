@@ -17,7 +17,7 @@ function App(props) {
                             href="#"
                             className="font-semibold text-primary-main"
                         >
-                            Application
+                            {/* Application */}
                         </a>
                     </li>
                     {/* <li>
@@ -31,7 +31,7 @@ function App(props) {
                                 <details>
                                     <summary>
                                         <button
-                                            className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-accent text-sm font-bold !text-white bg-primary-200"
+                                            className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-accent text-sm font-bold !text-white bg-primary"
                                         >
                                             {/* <img src="" alt=" " /> */}
                                             A

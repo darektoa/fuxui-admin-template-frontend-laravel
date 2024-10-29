@@ -31,7 +31,7 @@ function SignIn() {
                                     />
                                 </figure>
                                 <h1 className="">
-                                    Sign-in
+                                    {appContents['authSignInHeading1']?.value}
                                     <span className="block text-sm font-normal opacity-80">
                                         <span>{appContents['appTagline']?.value}</span>
                                     </span>
@@ -67,7 +67,7 @@ function SignIn() {
                             <button
                                 type="submit"
                                 className="btn btn-primary text-white mt-4 w-full">
-                                Submit
+                                {appContents['authSignInBtnLoginText']?.value}
                             </button>
                         </form>
                     </div>

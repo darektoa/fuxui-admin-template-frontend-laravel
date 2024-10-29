@@ -12,8 +12,8 @@ import toDataURL from '../../utilities/toDataURL';
 
 function Content()
 {
-    const [imagePreviewDataURL,  setImagePreviewDataURL] = useState(null);
     const [content, setContent] = useState({});
+    const [imagePreviewDataURL,  setImagePreviewDataURL] = useState(null);
     const { CSRF_TOKEN, contents } = usePage().props;
     const { contentId } = useParams();
     const { handleChange, values, setValues } = useForm({
@@ -63,8 +63,13 @@ function Content()
                         <Menu.Folders
                             data={contents}
                             href={(item) => `/contents/${item?.id}`}
-                            isActive={item => item.id == contentId}
                             reload={false}
+                            isActive={item => {
+                                if(item.id != contentId) return;
+
+                                setContent(item)
+                                return true;
+                            }}
                             onClick={(event, item) => {
                                 setContent(item)
                             }}

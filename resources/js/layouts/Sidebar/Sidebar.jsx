@@ -1,12 +1,10 @@
 import './style.css';
-import { NavLink, Outlet } from 'react-router-dom';
-import { matchPath, useMatch, useLocation } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
+import { matchPath, useLocation } from 'react-router-dom';
 import { useFavicon, useWebTitle } from '@/hooks';
 import { usePage } from '@inertiajs/react';
 import Divider from '@/components/Divider';
 import Header from '@/components/Header';
-import Icon from '@/components/Icon';
-import imageBrandLogo from '@/assets/images/brand-logo.svg';
 import Menu from '@/components/Menu';
 import React, { useEffect } from 'react';
 import Visibility from '@/components/Visibility';
@@ -17,7 +15,6 @@ function Sidebar() {
 
     useWebTitle(appContents['appWebTitle']?.value);
     useFavicon(appContents['appFavicon']?.value);
-    console.log(appContents)
 
     const isActive = (path, pathname) => (
         path &&
@@ -31,12 +28,14 @@ function Sidebar() {
                     <img
                         src={appContents['appLogo']?.value}
                         alt="Brand Logo"
-                        className="w-ful mx-auto object-contain mb-1"
+                        className="w-full max-h-16 mx-auto object-contain mb-1"
                     />
-                    <figcaption className="text-center text-sm">
+                    <figcaption className="text-center  text-sm">
                         {appContents['appName']?.value}
                     </figcaption>
                 </figure>
+
+                <Divider />
 
                 <Menu>
                     <Menu.Folders
@@ -70,7 +69,9 @@ function Sidebar() {
                 </div>
 
                 <footer className="w-full mt-auto bg-white py-4 px-8">
-                    <p className="text-sm text-center text-gray-400">Copyright &copy; 2024. All Rights Reserved.</p>
+                    <p className="text-sm text-center text-gray-400">
+                        Copyright &copy; 2024. All Rights Reserved.
+                    </p>
                 </footer>
             </section>
         </section>
