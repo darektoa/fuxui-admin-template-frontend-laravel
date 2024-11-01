@@ -30,6 +30,7 @@ export interface IconComponent extends React.FC<IconProps> {
     Icon: React.FC;
     Key: React.FC;
     Link: React.FC;
+    Mail: React.FC;
     Logout: React.FC;
     Plus: React.FC;
     RefreshCw: React.FC;

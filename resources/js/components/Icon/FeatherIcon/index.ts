@@ -23,6 +23,7 @@ import Image from './Image';
 import Info from './Info';
 import Key from './Key';
 import Link from './Link';
+import Mail from './Mail';
 import Logout from './Logout';
 import Plus from './Plus';
 import RefreshCw from './RefreshCw';
@@ -59,6 +60,7 @@ const FeatherIcon = {
     Info,
     Key,
     Link,
+    Mail,
     Logout,
     Plus,
     RefreshCw,

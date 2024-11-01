@@ -26,4 +26,4 @@ Route::prefix('/users')->name('users.')->group(function() {
 
 Route::resource('contents', Content\ContentController::class);
 Route::resource('home', Home\HomeController::class)->only('index');
-Route::resource('users', User\UserController::class)->only('index');
+Route::resource('users', User\UserController::class);

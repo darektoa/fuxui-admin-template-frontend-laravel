@@ -4,17 +4,16 @@ import React, { useState } from "react";
 import Icon from "@/components/Icon";
 import Ripple from "@/components/Ripple";
 import {
+    Breadcrumbs,
+    BreadcrumbItem,
+    Button,
+    Link,
     Table,
     TableHeader,
     TableColumn,
     TableBody,
     TableRow,
     TableCell,
-    Pagination,
-    getKeyValue,
-    Breadcrumbs,
-    BreadcrumbItem,
-    Button,
 } from "@nextui-org/react";
 
 function User() {
@@ -26,16 +25,19 @@ function User() {
     return (
         <main className="flex flex-col w-full gap-6 py-6">
             <Breadcrumbs>
-                <BreadcrumbItem>Dashboard</BreadcrumbItem>
                 <BreadcrumbItem>User Management</BreadcrumbItem>
                 <BreadcrumbItem>Users</BreadcrumbItem>
             </Breadcrumbs>
 
             <div className="w-full flex">
-                <Button color="primary" endContent={<Icon.FeatherIcon.Plus />}>
+                <Button
+                    as={Link}
+                    href="users/create"
+                    color="primary"
+                    endContent={<Icon.FeatherIcon.Plus />}
+                >
                     Add New
                 </Button>
-                <Ripple></Ripple>
             </div>
 
             <Table

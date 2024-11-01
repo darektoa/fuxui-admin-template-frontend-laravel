@@ -74,7 +74,7 @@ function AppRoutes() {
 
                 <Route path="/users">
                     <Route index element={<User />} />
-                    <Route path="create" element={<User />} />
+                    <Route path="create" element={<User.Create />} />
                     <Route path="edit/:id" element={<User />} />
 
                     <Route path="roles">
