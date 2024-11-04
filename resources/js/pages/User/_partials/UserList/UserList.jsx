@@ -7,7 +7,7 @@ import Card from '@/components/Card';
 import Divider from '@/components/Divider';
 import Icon from '@/components/Icon';
 import Visibility from '@/components/Visibility';
-import Component from '../../components';
+import Component from '../../_components';
 import ModalAddVoucher from '../ModalAddVoucher';
 import ModalDelete from '../ModalDelete';
 import ModalDetail from '../ModalDetail';

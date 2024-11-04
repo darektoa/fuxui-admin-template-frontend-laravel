@@ -1,17 +1,22 @@
 import './style.css';
 import { Outlet } from 'react-router-dom';
 import { matchPath, useLocation } from 'react-router-dom';
+import { useDisclosure } from '@nextui-org/react';
 import { useFavicon, useWebTitle } from '@/hooks';
 import { usePage } from '@inertiajs/react';
 import Divider from '@/components/Divider';
 import Header from '@/components/Header';
 import Menu from '@/components/Menu';
+import Modal from "@/components/Modal";
 import React, { useEffect } from 'react';
 import Visibility from '@/components/Visibility';
 
 function Sidebar() {
-    const { appContents, user, menus } = usePage().props;
+    const { appContents, errors, flash, user, menus } = usePage().props;
     const { pathname } = useLocation();
+    const modalSuccess = useDisclosure();
+    const modalFailed = useDisclosure();
+    const errorMessage = Object.values(errors || {})[0];
 
     useWebTitle(appContents['appWebTitle']?.value);
     useFavicon(appContents['appFavicon']?.value);
@@ -20,6 +25,11 @@ function Sidebar() {
         path &&
         matchPath(path, pathname)
     )
+
+    useEffect(() => {
+        if(Boolean(errorMessage)) modalFailed.onOpen();
+        if(Boolean(flash?.success)) modalSuccess.onOpen();
+    }, [errors, flash?.success]);
 
     return (
         <section className="sidebar-layout">
@@ -74,6 +84,20 @@ function Sidebar() {
                     </p>
                 </footer>
             </section>
+
+            <Modal.Failed
+                isOpen={modalFailed.isOpen}
+                onOpenChange={modalFailed.onOpenChange}
+                placement="top-center"
+                content={errorMessage}
+            />
+
+            <Modal.Success
+                isOpen={modalSuccess.isOpen}
+                onOpenChange={modalSuccess.onOpenChange}
+                placement="top-center"
+                content={flash?.success}
+            />
         </section>
     );
 }

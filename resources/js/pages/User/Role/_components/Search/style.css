@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	.affiliator-request-component-search {
+		@apply flex
+        w-max;
+	}
+}

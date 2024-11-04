@@ -26,7 +26,7 @@ function App(props) {
                         </a>
                     </li> */}
                     <li className="ml-auto">
-                        <ul class="menu lg:menu-horizontal">
+                        <ul className="menu lg:menu-horizontal">
                             <li>
                                 <details>
                                     <summary>

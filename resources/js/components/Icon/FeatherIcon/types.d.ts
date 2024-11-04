@@ -12,6 +12,7 @@ export interface IconComponent extends React.FC<IconProps> {
     BookOpen: React.FC;
     Box: React.FC;
     Briefcase: React.FC;
+    Calendar: React.FC;
     Check: React.FC;
     CheckCircle: React.FC;
     ChevronRight: React.FC;
@@ -32,6 +33,7 @@ export interface IconComponent extends React.FC<IconProps> {
     Link: React.FC;
     Mail: React.FC;
     Logout: React.FC;
+    Phone: React.FC;
     Plus: React.FC;
     RefreshCw: React.FC;
     Search: React.FC;
@@ -39,5 +41,6 @@ export interface IconComponent extends React.FC<IconProps> {
     Trash: React.FC;
     Type: React.FC;
     User: React.FC;
+    UserCheck: React.FC;
     Users: React.FC;
 }

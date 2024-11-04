@@ -1,18 +1,29 @@
 import "./style.css"
-import { Button, Breadcrumbs, BreadcrumbItem, Card, CardBody, CardHeader, DateInput, Divider, Input } from "@nextui-org/react"
+import {
+    Button,
+    Breadcrumbs,
+    BreadcrumbItem,
+    Card,
+    CardBody,
+    CardHeader,
+    Divider,
+    Input,
+    Select,
+    SelectItem,
+} from "@nextui-org/react"
 import { FeatherIcon } from "@/components/Icon";
 import React from "react";
 import { usePage } from "@inertiajs/react";
 
 const Create = () =>
 {
-    const { CSRF_TOKEN } = usePage().props;
+    const { CSRF_TOKEN, roles } = usePage().props;
 
     return (
         <main className="flex flex-col w-full gap-6 py-6">
             <Breadcrumbs>
-                <BreadcrumbItem>Dashboard</BreadcrumbItem>
                 <BreadcrumbItem>User Management</BreadcrumbItem>
+                <BreadcrumbItem href="/users">Users</BreadcrumbItem>
                 <BreadcrumbItem>Create</BreadcrumbItem>
             </Breadcrumbs>
 
@@ -38,8 +49,11 @@ const Create = () =>
                             name="email"
                             variant="flat"
                             placeholder="Enter email . . ."
-                            className="col-span-12 md:col-span-6 w-full"
                             labelPlacement="outside"
+                            className="col-span-12 md:col-span-6 w-full"
+                            classNames={{
+                                inputWrapper: "focus-within:ring-2",
+                            }}
                             startContent={
                                 <>
                                     <FeatherIcon.Mail className="size-4 mr-2" />
@@ -56,8 +70,11 @@ const Create = () =>
                             name="firstname"
                             variant="flat"
                             placeholder="Enter first name . . ."
-                            className="col-span-12 md:col-span-6 w-full"
                             labelPlacement="outside"
+                            className="col-span-12 md:col-span-6 w-full"
+                            classNames={{
+                                inputWrapper: "focus-within:ring-2",
+                            }}
                             startContent={
                                 <>
                                     <FeatherIcon.Type className="size-4 mr-2" />
@@ -72,8 +89,11 @@ const Create = () =>
                             name="lastname"
                             variant="flat"
                             placeholder="Enter last name . . ."
-                            className="col-span-12 md:col-span-6 w-full"
                             labelPlacement="outside"
+                            className="col-span-12 md:col-span-6 w-full"
+                            classNames={{
+                                inputWrapper: "focus-within:ring-2",
+                            }}
                             startContent={
                                 <>
                                     <FeatherIcon.Type className="size-4 mr-2" />
@@ -81,38 +101,40 @@ const Create = () =>
                                 </>
                             }
                         />
-                        <Input
-                            isDisabled
-                            disabled
-                            type="text"
-                            label="Password :"
-                            name="lastname"
-                            variant="flat"
-                            placeholder="Enter last password . . ."
-                            value="Password123"
-                            className="col-span-12 md:col-span-6 w-full"
+                        <Select
+                            isClearable
+                            isRequired
+                            required
+                            label="Roles :"
+                            name="roleId[]"
+                            selectionMode="multiple"
+                            placeholder="Select a role . . ."
                             labelPlacement="outside"
+                            className="col-span-12 md:col-span-6 w-full"
                             classNames={{
-                                label: "!text-black",
-                             }}
-                            startContent={
-                                <>
-                                    <FeatherIcon.Key className="size-4 mr-2 text-black" />
-                                    <div className="h-4/5 border-r border-slate-300"></div>
-                                </>
-                            }
-                        />
+                                trigger: "focus-within:ring-2",
+                            }}
+                        >
+                            {roles?.map((role) => (
+                                <SelectItem key={role.id} value={role.id}>
+                                    {role.name}
+                                </SelectItem>
+                            ))}
+                        </Select>
                         <Input
                             isClearable
                             type="date"
                             label="Birth Date :"
                             name="birthDate"
                             variant="flat"
-                            className="col-span-12 md:col-span-6 w-full"
                             labelPlacement="outside"
+                            className="col-span-12 md:col-span-6 w-full"
+                            classNames={{
+                                inputWrapper: "focus-within:ring-2",
+                            }}
                             startContent={
                                 <>
-                                    <FeatherIcon.Clock className="size-4 mr-2 text-black" />
+                                    <FeatherIcon.Calendar className="size-4 mr-2 text-black" />
                                     <div className="h-4/5 border-r border-slate-300"></div>
                                 </>
                             }
@@ -124,11 +146,55 @@ const Create = () =>
                             name="birthPlace"
                             variant="flat"
                             placeholder="Enter birth place . . ."
-                            className="col-span-12 md:col-span-6 w-full"
                             labelPlacement="outside"
+                            className="col-span-12 md:col-span-6 w-full"
+                            classNames={{
+                                inputWrapper: "focus-within:ring-2",
+                            }}
                             startContent={
                                 <>
                                     <FeatherIcon.Type className="size-4 mr-2" />
+                                    <div className="h-4/5 border-r border-slate-300"></div>
+                                </>
+                            }
+                        />
+                        <Input
+                            isClearable
+                            type="tel"
+                            label="Phone Number :"
+                            name="phoneNumber"
+                            variant="flat"
+                            placeholder="Enter phone number . . ."
+                            labelPlacement="outside"
+                            className="col-span-12 md:col-span-6 w-full"
+                            classNames={{
+                                inputWrapper: "focus-within:ring-2",
+                            }}
+                            startContent={
+                                <>
+                                    <FeatherIcon.Phone className="size-4 mr-2" />
+                                    <div className="h-4/5 border-r border-slate-300"></div>
+                                </>
+                            }
+                        />
+                        <Input
+                            isDisabled
+                            disabled
+                            type="text"
+                            label="Password :"
+                            name="password"
+                            variant="flat"
+                            placeholder="Enter last password . . ."
+                            value="Password123#"
+                            labelPlacement="outside"
+                            className="col-span-12 md:col-span-6 w-full"
+                            classNames={{
+                                inputWrapper: "focus-within:ring-2",
+                                label: "!text-black",
+                             }}
+                            startContent={
+                                <>
+                                    <FeatherIcon.Key className="size-4 mr-2 text-black" />
                                     <div className="h-4/5 border-r border-slate-300"></div>
                                 </>
                             }
