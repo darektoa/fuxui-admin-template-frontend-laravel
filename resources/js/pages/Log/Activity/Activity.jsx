@@ -19,9 +19,9 @@ import { router } from '@inertiajs/react'
 import Modal from "@/components/Modal";
 import React, { useState } from "react";
 
-function Role() {
+function Activitity() {
     const modalDeleteConfirm = useDisclosure();
-    const { roles } = usePage().props;
+    const { activities } = usePage().props;
     const [show, setShow] = useState({
         delete: null,
         filter: null,
@@ -30,26 +30,18 @@ function Role() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (show.restore) router.patch(`/users/roles/${show.restore?.id}/restore`);
-        if (show.delete) router.delete(`/users/roles/${show.delete?.id}`);
+        if (show.restore) router.patch(`/users/activities/${show.restore?.id}/restore`);
+        if (show.delete) router.delete(`/users/activities/${show.delete?.id}`);
     };
 
     return (
         <main className="flex flex-col w-full gap-6 py-6">
             <Breadcrumbs>
-                <BreadcrumbItem>User Management</BreadcrumbItem>
-                <BreadcrumbItem>Roles</BreadcrumbItem>
+                <BreadcrumbItem>Log</BreadcrumbItem>
+                <BreadcrumbItem>Activities</BreadcrumbItem>
             </Breadcrumbs>
 
             <div className="w-full flex">
-                <Button
-                    as={Link}
-                    href="roles/create"
-                    color="primary"
-                    endContent={<FeatherIcon.Plus />}
-                >
-                    Add New
-                </Button>
             </div>
 
             <Table
@@ -58,42 +50,22 @@ function Role() {
             >
                 <TableHeader>
                     <TableColumn>NAME</TableColumn>
-                    <TableColumn>CODENAME</TableColumn>
+                    <TableColumn>URL</TableColumn>
+                    <TableColumn>ACCESSED AT</TableColumn>
                     <TableColumn>ACTIONS</TableColumn>
                 </TableHeader>
                 <TableBody>
-                    {roles?.map((role) => (
-                        <TableRow key={role?.id}>
-                            <TableCell>{role?.name}</TableCell>
-                            <TableCell>{role?.codename}</TableCell>
+                    {activities?.map((activity) => (
+                        <TableRow key={activity?.id}>
+                            <TableCell>{activity?.name}</TableCell>
+                            <TableCell>{activity?.url}</TableCell>
+                            <TableCell>{activity?.createdAt}</TableCell>
                             <TableCell>
                                 <div className="relative flex items-center gap-2">
                                     <Tooltip content="Details">
                                         <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
                                             <FeatherIcon.Eye className="size-5 mx-1" />
                                         </span>
-                                    </Tooltip>
-                                    <Tooltip content="Edit role">
-                                        <a href={`roles/${role?.id}/edit`} className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                                            <FeatherIcon.Edit className="size-5 mx-1" />
-                                        </a>
-                                    </Tooltip>
-                                    <Tooltip
-                                        color="danger"
-                                        content="Delete role"
-                                    >
-                                        <button
-                                            className="text-lg text-danger cursor-pointer active:opacity-50"
-                                            onClick={() => {
-                                                modalDeleteConfirm.onOpen();
-                                                setShow((states) => ({
-                                                    ...states,
-                                                    delete: role,
-                                                }));
-                                            }}
-                                        >
-                                            <FeatherIcon.Trash className="size-5 mx-1" />
-                                        </button>
                                     </Tooltip>
                                 </div>
                             </TableCell>
@@ -113,7 +85,7 @@ function Role() {
                         <span className="font-bold">
                             {show?.delete?.name}
                         </span>{" "}
-                        role permanently! Are you sure?
+                        activity permanently! Are you sure?
                     </>
                 }
             />
@@ -121,4 +93,4 @@ function Role() {
     );
 }
 
-export default Role;
+export default Activitity;

@@ -52,8 +52,8 @@ function AppRoutes() {
 
                 <Route path="/logs">
                     <Route path="activities">
-                        <Route index element={<Log.Activitity />} />
-                        <Route path=":id" element={<Log.Activitity.Edit />} />
+                        <Route index element={<Log.Activity />} />
+                        <Route path=":id" element={<Log.Activity />} />
                     </Route>
                 </Route>
 

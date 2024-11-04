@@ -1,7 +1,7 @@
-import Acttivity from "./Activity";
+import Activity from "./Activity";
 
 const Log = {
-    Acttivity,
+    Activity,
 }
 
 export default Log;
