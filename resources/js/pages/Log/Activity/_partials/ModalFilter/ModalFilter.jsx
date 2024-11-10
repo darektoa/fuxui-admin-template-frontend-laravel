@@ -11,7 +11,23 @@ import { FeatherIcon } from "@/components/Icon";
 import React from "react";
 
 const ModalFilter = (props) => {
-    const { content, onSubmit, action, ...attrs } = props;
+    const {
+        action,
+        content,
+        onChange,
+        onSubmit,
+        setValues,
+        values,
+        ...attrs
+    } = props;
+
+    const dateRangeHandle = ({start, end}) => {
+        setValues(states => ({
+            ...states,
+            startDate: start,
+            endDate: end,
+        }))
+    };
 
     return (
         <Modal {...attrs}>
@@ -19,7 +35,7 @@ const ModalFilter = (props) => {
                 {(onClose) => (
                     <>
                         <ModalHeader className="flex justify-center">
-                            <h3 className="text-center text-xl font-semibold text-base-content">
+                            <h3 className="text-center text-xl font-semibold text-primary-500">
                                 Filter
                             </h3>
                         </ModalHeader>
@@ -30,15 +46,19 @@ const ModalFilter = (props) => {
                             className="grid grid-cols-12 gap-4 w-full pt-2 px-6 pb-6"
                         >
                             <DateRangePicker
+                                name="dateRange"
                                 label="Start Date, End Date"
                                 className="col-span-12"
-                                // value={value}
-                                // onChange={dateRangeHandle}
+                                onChange={dateRangeHandle}
+                                defaultValue={{
+                                    start: values?.startDate,
+                                    end: values?.endDate
+                                }}
                             />
                             <Button
                                 type="submit"
                                 onPress={onClose}
-                                className="col-span-12 bg-base-content text-base-100"
+                                className="col-span-12 bg-primary-600 text-white"
                             >
                                 Apply
                             </Button>
