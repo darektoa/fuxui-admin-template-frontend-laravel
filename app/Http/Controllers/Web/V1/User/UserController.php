@@ -10,11 +10,12 @@ use Inertia\Inertia;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         try {
             $response = Http::withAuthToken()
                 ->acceptJson()
+                ->withQueryParameters($request->all())
                 ->get(env('API_BASE_URL') . '/users');
 
             $response->throwIfClientError();
@@ -54,7 +55,7 @@ class UserController extends Controller
                 ->withErrors([$exception->getMessage()]);
         }
     }
-    
+
 
     public function edit(string $userId)
     {

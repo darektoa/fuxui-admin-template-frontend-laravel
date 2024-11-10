@@ -10,11 +10,12 @@ use Inertia\Inertia;
 
 class ActivityController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         try {
             $response = Http::withAuthToken()
                 ->acceptJson()
+                ->withQueryParameters($request->all())
                 ->get(env('API_BASE_URL') . '/logs/activities');
 
             $response->throwIfClientError();

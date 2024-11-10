@@ -5,6 +5,7 @@ import {
     BreadcrumbItem,
     Button,
     Chip,
+    Input,
     Link,
     Table,
     TableHeader,
@@ -19,10 +20,13 @@ import { FeatherIcon } from "@/components/Icon";
 import { router } from '@inertiajs/react'
 import Modal from "@/components/Modal";
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 function User() {
     const modalDeleteConfirm = useDisclosure();
-    const { users } = usePage().props;
+    const { search } = useLocation();
+    const searches = new URLSearchParams(search)
+    const { CSRF_TOKEN, users } = usePage().props;
     const [show, setShow] = useState({
         delete: null,
         filter: null,
@@ -43,14 +47,38 @@ function User() {
             </Breadcrumbs>
 
             <div className="w-full flex">
-                <Button
-                    as={Link}
-                    href="users/create"
-                    color="primary"
-                    endContent={<FeatherIcon.Plus />}
-                >
-                    Add New
-                </Button>
+                <form action="" method="GET" className="w-full grid grid-cols-12 gap-5 items-stretch justify-stretch">
+                    <Input
+                        isClearable
+                        type="text"
+                        label="Search . . ."
+                        name="search"
+                        variant="flat"
+                        size="sm"
+                        labelPlacement="inside"
+                        defaultValue={searches.get('search')}
+                        className="col-span-12 md:col-span-3 w-full"
+                        classNames={{
+                            inputWrapper: "focus-within:ring-2",
+                        }}
+                    />
+                    <Button
+                        color="primary"
+                        type="submit"
+                        className="col-span-12 md:col-span-1 h-full"
+                    >
+                        <FeatherIcon.Search className="size-5" />
+                    </Button>
+                    <Button
+                        as={Link}
+                        href="users/create"
+                        color="primary"
+                        endContent={<FeatherIcon.Plus />}
+                        className="col-span-12 md:col-span-2 h-full"
+                    >
+                        Add New
+                    </Button>
+                </form>
             </div>
 
             <Table
@@ -85,11 +113,11 @@ function User() {
                             </TableCell>
                             <TableCell>
                                 <div className="relative flex items-center gap-2">
-                                    <Tooltip content="Details">
+                                    {/* <Tooltip content="Details">
                                         <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
                                             <FeatherIcon.Eye className="size-5 mx-1" />
                                         </span>
-                                    </Tooltip>
+                                    </Tooltip> */}
                                     <Tooltip content="Edit user">
                                         <a href={`users/${user?.id}/edit`} className="text-lg text-default-400 cursor-pointer active:opacity-50">
                                             <FeatherIcon.Edit className="size-5 mx-1" />
