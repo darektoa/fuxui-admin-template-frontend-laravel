@@ -80,7 +80,7 @@ function Sidebar() {
 
                 <footer className="w-full mt-auto bg-white py-4 px-8">
                     <p className="text-sm text-center text-gray-400">
-                        Copyright &copy; 2024. All Rights Reserved.
+                        {appContents['footerCopyright']?.value}
                     </p>
                 </footer>
             </section>

@@ -4,6 +4,24 @@ import Item from '../Item';
 import React from 'react';
 import Str from '@/utilities/StringHelper';
 
+function checkTime(hours1, minutes1, seconds1) {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
+
+    const targetHours = hours1;
+    const targetMinutes = minutes1;
+    const targetSeconds = seconds1;
+
+    if (hours === targetHours && minutes === targetMinutes && seconds === targetSeconds) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 const Folders = (props) => {
     const {
         attributeMaps: AM,

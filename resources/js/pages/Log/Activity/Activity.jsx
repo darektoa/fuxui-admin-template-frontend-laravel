@@ -5,8 +5,7 @@ import {
     useDisclosure,
 } from "@nextui-org/react";
 import { FeatherIcon } from "@/components/Icon";
-import { router } from "@inertiajs/react";
-import { usePage } from "@inertiajs/react";
+import { router, usePage } from "@inertiajs/react";
 import Partial from "./_partials";
 import React, { useMemo, useState } from "react";
 import useForm from "@/hooks/useForm";
@@ -34,7 +33,7 @@ function Activitity() {
     };
 
     return (
-        <main className="grid griid-cols-12 w-full gap-6 py-6">
+        <main className="grid grid-cols-12 w-full gap-6 py-6">
             <Partial.Breadcrumbs />
 
             <div className="col-span-12 flex gap-4">
@@ -47,16 +46,16 @@ function Activitity() {
                         modalFilter.onOpen();
                     }}
                 >
-                    <FeatherIcon.Filter className="size-4" />
+                    <FeatherIcon.Filter className="size-5" />
                 </Button>
-                <Input
+                {/* <Input
                     isClearable
                     className="w-full sm:max-w-xs"
                     placeholder="Search here . . ."
-                    startContent={<FeatherIcon.Search className="size-4" />}
+                    startContent={<FeatherIcon.Search className="size-5 shrink-0" />}
                     value={values.search}
                     onValueChange={handleChange}
-                />
+                /> */}
             </div>
 
             <Partial.ActivityTable />

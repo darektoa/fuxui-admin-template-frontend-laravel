@@ -4,6 +4,9 @@ import {
     Breadcrumbs,
     BreadcrumbItem,
     Button,
+    Card,
+    CardBody,
+    CardHeader,
     Chip,
     Input,
     Link,
@@ -46,106 +49,118 @@ function User() {
                 <BreadcrumbItem>Users</BreadcrumbItem>
             </Breadcrumbs>
 
-            <div className="w-full flex">
-                <form action="" method="GET" className="w-full grid grid-cols-12 gap-5 items-stretch justify-stretch">
-                    <Input
-                        isClearable
-                        type="text"
-                        label="Search . . ."
-                        name="search"
-                        variant="flat"
-                        size="sm"
-                        labelPlacement="inside"
-                        defaultValue={searches.get('search')}
-                        className="col-span-12 md:col-span-3 w-full"
-                        classNames={{
-                            inputWrapper: "focus-within:ring-2",
-                        }}
-                    />
-                    <Button
-                        color="primary"
-                        type="submit"
-                        className="col-span-12 md:col-span-1 h-full"
-                    >
-                        <FeatherIcon.Search className="size-5" />
-                    </Button>
+            <Card className="col-span-12 shadow-xl">
+                <CardHeader className="w-full pt-6 px-6 pb-3 flex gap-3">
+                    <FeatherIcon.Users className="size-10 p-1 text-white rounded-md bg-gradient-primary bg-opacity-90 shrink-0" />
+                    <div className="flex flex-col">
+                        <h3 className="font-bold text-lg uppercase">Users</h3>
+                        <p className="text-small text-default-500">
+                            Create a user role
+                        </p>
+                    </div>
+                    <form action="" method="GET" className="mx-auto flex gap-2">
+                        <Input
+                            isClearable
+                            type="text"
+                            placeholder="Search . . ."
+                            name="search"
+                            variant="flat"
+                            defaultValue={searches.get('search')}
+                            className=""
+                            classNames={{
+                                inputWrapper: "focus-within:ring-2",
+                            }}
+                        />
+                        <Button
+                            isIconOnly
+                            color="primary"
+                            type="submit"
+                            className=""
+                        >
+                            <FeatherIcon.Search className="size-5" />
+                        </Button>
+                    </form>
                     <Button
                         as={Link}
                         href="users/create"
                         color="primary"
                         endContent={<FeatherIcon.Plus />}
-                        className="col-span-12 md:col-span-2 h-full"
+                        className="ml-auto"
                     >
                         Add New
                     </Button>
-                </form>
-            </div>
-
-            <Table
-                color={"primary"}
-                aria-label="Example static collection table"
-            >
-                <TableHeader>
-                    <TableColumn>NAME</TableColumn>
-                    <TableColumn>EMAIL</TableColumn>
-                    <TableColumn>USERNAME</TableColumn>
-                    <TableColumn>ROLES</TableColumn>
-                    <TableColumn>ACTIONS</TableColumn>
-                </TableHeader>
-                <TableBody>
-                    {users?.map((user) => (
-                        <TableRow key={user?.id}>
-                            <TableCell>
-                                {user?.firstname} {user?.lastname}
-                            </TableCell>
-                            <TableCell>{user?.email}</TableCell>
-                            <TableCell>{user?.username}</TableCell>
-                            <TableCell>
-                                {user?.roles?.map((role) => (
-                                    <Chip
-                                        key={role.id}
-                                        size="sm"
-                                        className="m-0.5"
-                                    >
-                                        {role.name}
-                                    </Chip>
-                                ))}
-                            </TableCell>
-                            <TableCell>
-                                <div className="relative flex items-center gap-2">
-                                    {/* <Tooltip content="Details">
-                                        <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                                            <FeatherIcon.Eye className="size-5 mx-1" />
-                                        </span>
-                                    </Tooltip> */}
-                                    <Tooltip content="Edit user">
-                                        <a href={`users/${user?.id}/edit`} className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                                            <FeatherIcon.Edit className="size-5 mx-1" />
-                                        </a>
-                                    </Tooltip>
-                                    <Tooltip
-                                        color="danger"
-                                        content="Delete user"
-                                    >
-                                        <button
-                                            className="text-lg text-danger cursor-pointer active:opacity-50"
-                                            onClick={() => {
-                                                modalDeleteConfirm.onOpen();
-                                                setShow((states) => ({
-                                                    ...states,
-                                                    delete: user,
-                                                }));
-                                            }}
-                                        >
-                                            <FeatherIcon.Trash className="size-5 mx-1" />
-                                        </button>
-                                    </Tooltip>
-                                </div>
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+                </CardHeader>
+                <CardBody className="w-full pt-3 px-6 pb-6 grid grid-cols-12 gap-5 overflow-visible">
+                    <Table
+                        isHeaderSticky
+                        removeWrapper
+                        aria-label="List table"
+                        className="col-span-12"
+                        color={"primary"}
+                    >
+                        <TableHeader>
+                            <TableColumn>NAME</TableColumn>
+                            <TableColumn>EMAIL</TableColumn>
+                            <TableColumn>USERNAME</TableColumn>
+                            <TableColumn>ROLES</TableColumn>
+                            <TableColumn>ACTIONS</TableColumn>
+                        </TableHeader>
+                        <TableBody>
+                            {users?.map((user) => (
+                                <TableRow key={user?.id}>
+                                    <TableCell>
+                                        {user?.firstname} {user?.lastname}
+                                    </TableCell>
+                                    <TableCell>{user?.email}</TableCell>
+                                    <TableCell>{user?.username}</TableCell>
+                                    <TableCell>
+                                        {user?.roles?.map((role) => (
+                                            <Chip
+                                                key={role.id}
+                                                size="sm"
+                                                className="m-0.5"
+                                            >
+                                                {role.name}
+                                            </Chip>
+                                        ))}
+                                    </TableCell>
+                                    <TableCell>
+                                        <div className="relative flex items-center gap-2">
+                                            {/* <Tooltip content="Details">
+                                                <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                                                    <FeatherIcon.Eye className="size-5 mx-1" />
+                                                </span>
+                                            </Tooltip> */}
+                                            <Tooltip content="Edit user">
+                                                <a href={`users/${user?.id}/edit`} className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                                                    <FeatherIcon.Edit className="size-5 mx-1" />
+                                                </a>
+                                            </Tooltip>
+                                            <Tooltip
+                                                color="danger"
+                                                content="Delete user"
+                                            >
+                                                <button
+                                                    className="text-lg text-danger cursor-pointer active:opacity-50"
+                                                    onClick={() => {
+                                                        modalDeleteConfirm.onOpen();
+                                                        setShow((states) => ({
+                                                            ...states,
+                                                            delete: user,
+                                                        }));
+                                                    }}
+                                                >
+                                                    <FeatherIcon.Trash className="size-5 mx-1" />
+                                                </button>
+                                            </Tooltip>
+                                        </div>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </CardBody>
+            </Card>
 
             <Modal.DeleteConfirm
                 isOpen={modalDeleteConfirm.isOpen}
@@ -163,8 +178,6 @@ function User() {
                     </>
                 }
             />
-
-
         </main>
     );
 }

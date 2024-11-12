@@ -52,11 +52,20 @@ class RoleController extends Controller
                 ->acceptJson()
                 ->get(env('API_BASE_URL') . "/users/roles/$roleId");
 
+            $menuPermRes = Http::withAuthToken()
+                ->acceptJson()
+                ->get(env('API_BASE_URL') . "/menus/permissions");
+
             $roleRes->throwIfClientError();
             $roleRes->throwIfServerError();
+            $menuPermRes->throwIfClientError();
+            $menuPermRes->throwIfServerError();
+
             $role = $roleRes->object()->data;
+            $menuPermissions = $menuPermRes->object()->data;
 
             return Inertia::render('Routes', compact(
+                'menuPermissions',
                 'role',
             ));
         } catch (Exception $exception) {
@@ -95,21 +104,23 @@ class RoleController extends Controller
     public function update(Request $request, string $roleId)
     {
         try {
+            // dd($request->all());
             $response = Http::withAuthToken()
                 ->acceptJson()
                 ->post(env('API_BASE_URL') . "/users/roles/$roleId", [
-                    "_method"           => "PATCH",
+                    "_method"           => "PUT",
                     "name"              => $request->name,
                     "codename"          => $request->codename,
                     "menuPermissions"   => $request->menuPermissions,
                 ]);
 
+            // dd($response->object());
+
             $response->throwIfClientError();
             $response->throwIfServerError();
 
-            return redirect()
-                ->route('users.roles.index')
-                ->with('success', 'Successfully updated role');
+            return back()
+                ->with('success', 'Successfully updated role');;
         } catch (Exception $exception) {
             return redirect()
                 ->back()

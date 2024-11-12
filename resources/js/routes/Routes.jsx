@@ -47,6 +47,7 @@ function AppRoutes() {
 
                 <Route path="/contents">
                     <Route index element={<Content />} />
+                    <Route path="type" element={<Content.Type />} />
                     <Route path=":contentId" element={<Content />} />
                 </Route>
 
