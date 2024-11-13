@@ -6,6 +6,7 @@ import Home from '@/pages/Home';
 import Layout from '@/layouts';
 import Log from '@/pages/Log';
 import Maintenance from '@/pages/Maintenance';
+import Menu from '@/pages/Menu';
 import Profile from '@/pages/Profile';
 import React from 'react';
 import User from '@/pages/User';
@@ -47,7 +48,7 @@ function AppRoutes() {
 
                 <Route path="/contents">
                     <Route index element={<Content />} />
-                    <Route path="type" element={<Content.Type />} />
+                    <Route path="types" element={<Content.Type />} />
                     <Route path=":contentId" element={<Content />} />
                 </Route>
 
@@ -59,19 +60,19 @@ function AppRoutes() {
                 </Route>
 
                 <Route path="/menus">
-                    <Route index element={<User />} />
-                    <Route path="create" element={<User />} />
-                    <Route path=":id/edit" element={<User />} />
+                    <Route index element={<Menu />} />
+                    <Route path="create" element={<Menu />} />
+                    <Route path=":id/edit" element={<Menu />} />
 
                     <Route path="permissions">
-                        <Route index element={<User />} />
-                        <Route path="create" element={<User />} />
-                        <Route path=":id/edit" element={<User />} />
+                        <Route index element={<Menu.Permission />} />
+                        <Route path="create" element={<Menu.Permission />} />
+                        <Route path=":id/edit" element={<Menu.Permission />} />
 
                         <Route path="types">
-                            <Route index element={<User />} />
-                            <Route path="create" element={<User />} />
-                            <Route path=":id/edit" element={<User />} />
+                            <Route index element={<Menu.Permission.Type />} />
+                            <Route path="create" element={<Menu.Permission.Type />} />
+                            <Route path=":id/edit" element={<Menu.Permission.Type />} />
                         </Route>
                     </Route>
                 </Route>

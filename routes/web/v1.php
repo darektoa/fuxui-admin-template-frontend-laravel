@@ -11,12 +11,16 @@ Route::resource('sign-out', Auth\SignOutController::class)->only(['delete']);
 Route::get('sign-out', [Auth\SignOutController::class, 'destroy']);
 Route::resource('sign-up', Auth\SignUpController::class)->only(['index', 'store']);
 
+Route::prefix('/contents')->name('contents.')->group(function() {
+    Route::resource('types', Content\TypeController::class);
+});
+
 Route::prefix('/logs')->name('logs.')->group(function() {
     Route::resource('activities', Log\ActivityController::class);
 });
 
 Route::prefix('/menus')->name('menus.')->group(function() {
-    Route::prefix('/permissions')->name('permissions.')->group(function() {
+    Route::prefix('permissions')->name('permissions.')->group(function() {
         Route::resource('types', Menu\Permission\TypeController::class);
     });
 
@@ -30,4 +34,5 @@ Route::prefix('/users')->name('users.')->group(function() {
 
 Route::resource('contents', Content\ContentController::class);
 Route::resource('home', Home\HomeController::class)->only('index');
+Route::resource('menus', Menu\MenuController::class);
 Route::resource('users', User\UserController::class)->except('show');

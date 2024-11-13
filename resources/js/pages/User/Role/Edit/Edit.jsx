@@ -6,7 +6,6 @@ import {
     Card,
     CardBody,
     CardHeader,
-    Divider,
     Input,
 } from "@nextui-org/react";
 import { FeatherIcon } from "@/components/Icon";
@@ -44,8 +43,8 @@ const Edit = () => {
                 <BreadcrumbItem>Edit</BreadcrumbItem>
             </Breadcrumbs>
 
-            <Card className="shadow-xl">
-                <CardHeader className="px-4 flex gap-3">
+            <Card className="col-span-12 shadow-xl">
+                <CardHeader className="w-full pt-6 px-6 pb-3 flex gap-3">
                     <FeatherIcon.UserCheck className="size-10 p-1 text-white rounded-md bg-gradient-primary bg-opacity-90" />
                     <div className="flex flex-col">
                         <h3 className="font-bold text-xl">Role Edit</h3>
@@ -54,10 +53,9 @@ const Edit = () => {
                         </p>
                     </div>
                 </CardHeader>
-                <Divider />
                 <CardBody
                     as={"form"}
-                    className="w-full p-4 grid grid-cols-12 gap-5 overflow-visible py-2"
+                    className="w-full pt-3 px-6 pb-6 grid grid-cols-12 gap-5 overflow-visible"
                     onSubmit={handleUpdate}
                 >
                     <Input

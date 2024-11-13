@@ -106,7 +106,6 @@ class ContentController extends Controller
 
             return back();
         } catch(Exception $e) {
-            dd($e);
             return redirect()->route('sign-in.index');
         }
     }

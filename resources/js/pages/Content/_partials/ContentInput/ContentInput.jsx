@@ -1,11 +1,11 @@
 import './style.css';
-import React from 'react';
 import { FeatherIcon } from '@/components/Icon';
-import { Input as NextInput, Textarea } from '@nextui-org/react';
-import Visibility from '@/components/Visibility';
+import { Input, Textarea } from '@nextui-org/react';
+import React from 'react';
 import Str from '@/utilities/StringHelper';
+import Visibility from '@/components/Visibility';
 
-const Input = (props) => {
+const ContentInput = (props) => {
     const {
         hidden,
         type,
@@ -16,7 +16,7 @@ const Input = (props) => {
     return (
         <>
             <Visibility hidden={hidden || type != 'text'}>
-                <NextInput
+                <Input
                     {...attrs}
                     type="text"
                     labelPlacement="outside"
@@ -30,7 +30,7 @@ const Input = (props) => {
             </Visibility>
 
             <Visibility hidden={hidden || type != 'URL'}>
-                <NextInput
+                <Input
                     {...attrs}
                     type="text"
                     labelPlacement="outside"
@@ -44,7 +44,7 @@ const Input = (props) => {
             </Visibility>
 
             <Visibility hidden={hidden || type != 'color'}>
-                <NextInput
+                <Input
                     {...attrs}
                     type="color"
                     labelPlacement="outside"
@@ -58,7 +58,7 @@ const Input = (props) => {
             </Visibility>
 
             <Visibility hidden={hidden || type != 'number'}>
-                <NextInput
+                <Input
                     {...attrs}
                     type="number"
                     labelPlacement="outside"
@@ -107,4 +107,4 @@ const Input = (props) => {
     )
 }
 
-export default Input;
+export default ContentInput;

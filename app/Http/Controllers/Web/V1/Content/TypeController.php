@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Web\V1\Menu\Permission;
+namespace App\Http\Controllers\Web\V1\Content;
 
 use App\Helpers\Http;
 use App\Http\Controllers\Controller;
@@ -8,7 +8,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class PermissionController extends Controller
+class TypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,15 +18,15 @@ class PermissionController extends Controller
         try {
             $response = Http::withAuthToken()
                 ->acceptJson()
-                ->get(env('API_BASE_URL') . '/menus/permissions');
+                ->get(env('API_BASE_URL') . '/contents/types');
 
             $response->throwIfClientError();
             $response->throwIfServerError();
 
-            $permissions = $response->object()->data;
+            $contentTypes = $response->object()->data;
 
             return Inertia::render('Routes', compact(
-                'permissions'
+                'contentTypes'
             ));
         } catch (Exception $e) {
             return redirect()->route('sign-in.index');
@@ -42,15 +42,15 @@ class PermissionController extends Controller
             $response = Http::withAuthToken()
                 ->acceptJson()
                 ->withBody($request->toArray())
-                ->post(env('API_BASE_URL') . '/menus/permissions');
+                ->post(env('API_BASE_URL') . '/contents/types');
 
             $response->throwIfClientError();
             $response->throwIfServerError();
 
-            $permissions = $response->object()->data;
+            $contentTypes = $response->object()->data;
 
             return Inertia::render('Routes', compact(
-                'permissions'
+                'contentTypes'
             ));
         } catch (Exception $e) {
             return redirect()->route('sign-in.index');
@@ -65,15 +65,15 @@ class PermissionController extends Controller
         try {
             $response = Http::withAuthToken()
                 ->acceptJson()
-                ->get(env('API_BASE_URL') . '/menus/permissions');
+                ->get(env('API_BASE_URL') . '/contents/types');
 
             $response->throwIfClientError();
             $response->throwIfServerError();
 
-            $permissions = $response->object()->data;
+            $contentTypes = $response->object()->data;
 
             return Inertia::render('Routes', compact(
-                'permissions'
+                'contentTypes'
             ));
         } catch (Exception $e) {
             return redirect()->route('sign-in.index');
@@ -89,7 +89,7 @@ class PermissionController extends Controller
             $response = Http::withAuthToken()
                 ->acceptJson()
                 ->asMultipart()
-                ->post(env('API_BASE_URL') . "/menus/permissions/$id", array_merge($request->toArray(), [
+                ->post(env('API_BASE_URL') . "/contents/types/$id", array_merge($request->toArray(), [
                     '_method'   => 'PUT',
                 ]));
 

@@ -1,6 +1,6 @@
 import Content from "./Content";
-import Input from "./Input";
+import Type from "./Type";
 
-Content.Input = Input;
+Content.Type = Type;
 
 export default Content;

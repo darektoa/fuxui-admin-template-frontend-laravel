@@ -11,8 +11,8 @@ import { FeatherIcon } from "@/components/Icon";
 import { useForm } from "@/hooks";
 import { usePage } from "@inertiajs/react";
 import { useParams } from "react-router-dom";
-import ContentInput from "./Input";
 import Menu from "@/components/Menu";
+import Partial from "./_partials";
 import React, { useEffect, useState } from "react";
 import toDataURL from "../../utilities/toDataURL";
 import Visibility from "@/components/Visibility";
@@ -108,7 +108,7 @@ function Content() {
                                 name="_token"
                                 value={CSRF_TOKEN}
                             />
-                            <ContentInput
+                            <Partial.ContentInput
                                 className="mb-3"
                                 type={content?.type?.codename}
                                 name="value"
