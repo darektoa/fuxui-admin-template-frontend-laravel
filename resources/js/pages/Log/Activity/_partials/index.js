@@ -1,9 +1,9 @@
-import ActivityTable from './ActivityTable';
+import ActivityTableCard from './ActivityTableCard';
 import Breadcrumbs from './Breadcrumbs';
 import ModalFilter from './ModalFilter';
 
 const Partial = {
-    ActivityTable,
+    ActivityTableCard,
     Breadcrumbs,
     ModalFilter,
 };

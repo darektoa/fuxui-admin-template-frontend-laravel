@@ -1,15 +1,17 @@
-import './style.css';
-import { Outlet } from 'react-router-dom';
-import { matchPath, useLocation } from 'react-router-dom';
-import { useDisclosure } from '@nextui-org/react';
-import { useFavicon, useWebTitle } from '@/hooks';
-import { usePage } from '@inertiajs/react';
-import Divider from '@/components/Divider';
-import Header from '@/components/Header';
-import Menu from '@/components/Menu';
+import "./style.css";
+import { Outlet } from "react-router";
+import { matchPath, useLocation } from "react-router";
+import { useDisclosure } from "@nextui-org/react";
+import { useFavicon, useWebTitle } from "@/hooks";
+import { usePage } from "@inertiajs/react";
+import Divider from "@/components/Divider";
+import Header from "@/components/Header";
+import Menu from "@/components/Menu";
 import Modal from "@/components/Modal";
-import React, { useEffect } from 'react';
-import Visibility from '@/components/Visibility';
+import React, {useEffect, useMemo} from "react";
+import Str from "@/utilities/Str";
+import SVG from "@/components/SVG";
+import Visibility from "@/components/Visibility";
 
 function Sidebar() {
     const { appContents, errors, flash, user, menus } = usePage().props;
@@ -18,30 +20,27 @@ function Sidebar() {
     const modalFailed = useDisclosure();
     const errorMessage = Object.values(errors || {})[0];
 
-    useWebTitle(appContents['appWebTitle']?.value);
-    useFavicon(appContents['appFavicon']?.value);
+    useWebTitle(appContents["appWebTitle"]?.value);
+    useFavicon(appContents["appFavicon"]?.value);
 
-    const isActive = (path, pathname) => (
-        path &&
-        matchPath(path, pathname)
-    )
+    const isActive = (path, pathname) => path && matchPath(path, pathname);
 
     useEffect(() => {
-        if(Boolean(errorMessage)) modalFailed.onOpen();
-        if(Boolean(flash?.success)) modalSuccess.onOpen();
+        if (Boolean(errorMessage)) modalFailed.onOpen();
+        if (Boolean(flash?.success)) modalSuccess.onOpen();
     }, [errors, flash?.success]);
 
-    return (
+    return useMemo(() => (
         <section className="sidebar-layout">
             <nav className="sidebar-layout__nav scrollbar-thin">
                 <figure className="sticky top-0 w-full bg-inherit px-4 py-7">
                     <img
-                        src={appContents['appLogo']?.value}
+                        src={appContents["appLogo"]?.value}
                         alt="Brand Logo"
                         className="w-full max-h-16 mx-auto object-contain mb-1"
                     />
                     <figcaption className="text-center  text-sm">
-                        {appContents['appName']?.value}
+                        {appContents["appName"]?.value}
                     </figcaption>
                 </figure>
 
@@ -51,17 +50,34 @@ function Sidebar() {
                     <Menu.Folders
                         data={menus}
                         filter={(item) => item?.uri == null}
-                        isActive={(item) => isActive(item?.uri, pathname)}
+                        isActive={(item) => isActive(item?.data?.uri, pathname)}
                         itemFilter={(item) => item?.uri != null}
                         reload={true}
+                        target={(item) =>
+                            Boolean(item?.isExternalUri) ? "__blank" : ""
+                        }
+                        render={(item, child) => {
+                            return (
+                                <div className="flex items-center">
+                                    <SVG
+                                        url={item.data?.iconUri}
+                                        className={Str.joinClassName(
+                                            "size-8 mr-1",
+                                            item?.isActive?.(item) ? "text-white" : "text-primary"
+                                        )}
+                                    />
+                                    { child }
+                                </div>
+                            )
+                        }}
                         attributeMaps={{
-                            children: 'name',
-                            data: 'menus',
-                            items: 'menus',
+                            children: "name",
+                            data: "menus",
+                            items: "menus",
                         }}
                         itemAttributeMaps={{
-                            children: 'name',
-                            href: 'uri',
+                            children: "name",
+                            href: "uri",
                         }}
                     />
                 </Menu>
@@ -80,7 +96,7 @@ function Sidebar() {
 
                 <footer className="w-full mt-auto bg-white py-4 px-8">
                     <p className="text-sm text-center text-gray-400">
-                        {appContents['footerCopyright']?.value}
+                        {appContents["footerCopyright"]?.value}
                     </p>
                 </footer>
             </section>
@@ -99,7 +115,7 @@ function Sidebar() {
                 content={flash?.success}
             />
         </section>
-    );
+    ), []);
 }
 
 export default Sidebar;

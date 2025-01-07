@@ -5,11 +5,13 @@ namespace App\Services;
 use Exception;
 use Illuminate\Support\Facades\Http;
 
-class SettingService {
+class SettingService
+{
     public function get()
     {
         try {
             $response = Http::acceptJson()
+                ->withUserAgent(request()->userAgent())
                 ->get(env('API_BASE_URL') . '/setting');
 
             $response->throwIfClientError();
@@ -18,7 +20,7 @@ class SettingService {
             $data = $response->object()->data;
 
             return $data;
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return null;
         }
     }

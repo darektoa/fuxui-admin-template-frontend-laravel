@@ -18,13 +18,14 @@ import {
     useDisclosure,
 } from "@nextui-org/react";
 import { FeatherIcon } from "@/components/Icon";
-import { router } from '@inertiajs/react'
+import { router } from "@inertiajs/react";
+import isAuthorized from "@/utilities/isAuthorized";
 import Modal from "@/components/Modal";
 import React, { useState } from "react";
 
 function Role() {
     const modalDeleteConfirm = useDisclosure();
-    const { roles } = usePage().props;
+    const { roles, userPermissions } = usePage().props;
     const [show, setShow] = useState({
         delete: null,
         filter: null,
@@ -33,7 +34,8 @@ function Role() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (show.restore) router.patch(`/users/roles/${show.restore?.id}/restore`);
+        if (show.restore)
+            router.patch(`/users/roles/${show.restore?.id}/restore`);
         if (show.delete) router.delete(`/users/roles/${show.delete?.id}`);
     };
 
@@ -49,9 +51,15 @@ function Role() {
                     <FeatherIcon.Activity className="size-10 p-1 text-white rounded-md bg-gradient-primary bg-opacity-90 shrink-0" />
                     <div className="flex flex-col">
                         <h3 className="font-bold text-lg uppercase">Roles</h3>
-                        <p className="text-small text-default-500">List of all activity log</p>
+                        <p className="text-small text-default-500">
+                            List of all activity log
+                        </p>
                     </div>
                     <Button
+                        isDisabled={!isAuthorized(
+                            userPermissions,
+                            "01JDKB58YQNTN1HHF0TBKVP686"
+                        )}
                         as={Link}
                         href="roles/create"
                         color="primary"
@@ -65,6 +73,10 @@ function Role() {
                     <Table
                         isHeaderSticky
                         removeWrapper
+                        hidden={!isAuthorized(
+                            userPermissions,
+                            "01JDKB58YQNTN1HHF0TBKVP685"
+                        )}
                         aria-label="List table"
                         className="col-span-12"
                         color={"primary"}
@@ -87,15 +99,33 @@ function Role() {
                                                 </span>
                                             </Tooltip> */}
                                             <Tooltip content="Edit role">
-                                                <a href={`roles/${role?.id}/edit`} className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                                                <Button
+                                                    isIconOnly
+                                                    isDisabled={!isAuthorized(
+                                                        userPermissions,
+                                                        "01JDKB58YQNTN1HHF0TBKVP688"
+                                                    )}
+                                                    as="a"
+                                                    href={`roles/${role?.id}/edit`}
+                                                    color="secondary"
+                                                    variant="light"
+                                                    className="text-lg text-default-400 cursor-pointer active:opacity-50"
+                                                >
                                                     <FeatherIcon.Edit className="size-5 mx-1" />
-                                                </a>
+                                                </Button>
                                             </Tooltip>
                                             <Tooltip
                                                 color="danger"
                                                 content="Delete role"
                                             >
-                                                <button
+                                                <Button
+                                                    isIconOnly
+                                                    isDisabled={!isAuthorized(
+                                                        userPermissions,
+                                                        "01JDKB58YQNTN1HHF0TBKVP689"
+                                                    )}
+                                                    color="secondary"
+                                                    variant="light"
                                                     className="text-lg text-danger cursor-pointer active:opacity-50"
                                                     onClick={() => {
                                                         modalDeleteConfirm.onOpen();
@@ -106,7 +136,7 @@ function Role() {
                                                     }}
                                                 >
                                                     <FeatherIcon.Trash className="size-5 mx-1" />
-                                                </button>
+                                                </Button>
                                             </Tooltip>
                                         </div>
                                     </TableCell>
@@ -125,9 +155,7 @@ function Role() {
                 content={
                     <>
                         This action will disable{" "}
-                        <span className="font-bold">
-                            {show?.delete?.name}
-                        </span>{" "}
+                        <span className="font-bold">{show?.delete?.name}</span>{" "}
                         role permanently! Are you sure?
                     </>
                 }

@@ -1,22 +1,25 @@
-import './style.css';
-import { useSearchParams } from 'react-router-dom';
-import React, { useMemo } from 'react';
-import Button from '@/components/Button';
-import Icon from '@/components/Icon';
-import Str from '@/utilities/StringHelper';
+import "./style.css";
+import { useSearchParams } from "react-router";
+import React, { useMemo } from "react";
+import Button from "@/components/Button";
+import Icon from "@/components/Icon";
+import Str from "@/utilities/Str";
 
 function Search(props) {
     const { className } = props;
     const [searchParams, setSearchParams] = useSearchParams(
         new URLSearchParams({
-            search: '',
-        }),
+            search: "",
+        })
     );
 
-    const search = useMemo(() => searchParams.get('searchTransaction'), [searchParams]);
+    const search = useMemo(
+        () => searchParams.get("searchTransaction"),
+        [searchParams]
+    );
 
     const searchChangeHandle = (e) => {
-        searchParams.set('searchTransaction', e.target.value);
+        searchParams.set("searchTransaction", e.target.value);
         setSearchParams(searchParams);
     };
 
@@ -27,7 +30,10 @@ function Search(props) {
 
     return (
         <form
-            className={Str.joinClassName('affiliator-request-component-search', className)}
+            className={Str.joinClassName(
+                "affiliator-request-component-search",
+                className
+            )}
             onSubmit={reloadHandle}
         >
             <input

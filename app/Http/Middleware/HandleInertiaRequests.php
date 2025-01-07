@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Helpers\AuthHelper;
 use App\Services\ContentService;
+use App\Services\Menu\PermissionService;
 use App\Services\MenuService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -40,12 +41,13 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         return array_merge(parent::share($request), [
-            'CSRF_TOKEN'    => csrf_token(),
-            'user'          => AuthHelper::user(),
-            'inputs'        => Session::getOldInput(),
-            'menus'         => (new MenuService)->get(),
-            'appContents'   => (new ContentService)->get(new Request(['keyBy' => 'codename'])),
-            'flash'              => [
+            'CSRF_TOKEN'        => csrf_token(),
+            'user'              => AuthHelper::user(),
+            'inputs'            => Session::getOldInput(),
+            'menus'             => (new MenuService)->get(),
+            'appContents'       => (new ContentService)->get(new Request(['keyBy' => 'codename'])),
+            'userPermissions'   => (new PermissionService)->get(new Request(['idOnly' => true, 'asObject' => true])),
+            'flash'             => [
                 'errors'  => fn() => $request->session()->get('errors') ?? null,
                 'message' => fn() => $request->session()->get('message'),
                 'success' => fn() => $request->session()->get('success')

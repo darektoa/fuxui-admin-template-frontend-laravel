@@ -1,6 +1,6 @@
-import './style.css';
-import React from 'react';
-import Str from '@/utilities/StringHelper';
+import "./style.css";
+import React from "react";
+import Str from "@/utilities/Str";
 
 function Check(props) {
     const { className, ...attrs } = props;
@@ -17,13 +17,9 @@ function Check(props) {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className={Str.joinClassName('feather-icon', className)}
+            className={Str.joinClassName("feather-icon", className)}
         >
-            <circle
-                cx="12"
-                cy="12"
-                r="10"
-            />
+            <circle cx="12" cy="12" r="10" />
             <polyline points="12 6 12 12 16 14" />
         </svg>
     );

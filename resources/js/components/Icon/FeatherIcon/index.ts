@@ -17,6 +17,8 @@ import Droplet from './Droplet';
 import Edit from './Edit';
 import ExternalLink from './ExternalLink';
 import Eye from './Eye';
+import File from './File';
+import FileText from './FileText';
 import Filter from './Filter';
 import Hash from './Hash';
 import Home from './Home';
@@ -25,11 +27,13 @@ import Info from './Info';
 import Key from './Key';
 import Link from './Link';
 import Mail from './Mail';
+import MoreVertical from './MoreVertical';
 import Logout from './Logout';
 import Phone from './Phone';
 import Plus from './Plus';
 import RefreshCw from './RefreshCw';
 import Search from './Search';
+import Smile from './Smile';
 import Tag from './Tag';
 import Trash from './Trash';
 import Type from './Type';
@@ -57,6 +61,8 @@ const FeatherIcon = {
     Edit,
     ExternalLink,
     Eye,
+    File,
+    FileText,
     Filter,
     Hash,
     Home,
@@ -65,11 +71,13 @@ const FeatherIcon = {
     Key,
     Link,
     Mail,
+    MoreVertical,
     Logout,
     Phone,
     Plus,
     RefreshCw,
     Search,
+    Smile,
     Tag,
     Trash,
     Type,

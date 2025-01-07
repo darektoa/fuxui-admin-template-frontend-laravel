@@ -1,11 +1,10 @@
-import './style.css';
-import React, { useEffect, useState } from 'react';
-import Str from '../../utilities/StringHelper';
+import "./style.css";
+import React, { useEffect, useState } from "react";
+import Str from "../../utilities/Str";
 
 function Toast(props) {
-    const {
-        children, className, duration, onHide, show, value, ...attrs
-    } = props;
+    const { children, className, duration, onHide, show, value, ...attrs } =
+        props;
     const [showMe, setShowMe] = useState(show);
 
     useEffect(() => {
@@ -21,7 +20,11 @@ function Toast(props) {
     return (
         <section
             {...attrs}
-            className={Str.joinClassName('toast-component', className, showMe || 'toast-component--hide')}
+            className={Str.joinClassName(
+                "toast-component",
+                className,
+                showMe || "toast-component--hide"
+            )}
         >
             {children || value}
         </section>

@@ -1,6 +1,6 @@
 import "./style.css";
 import React from "react";
-import Str from "@/utilities/StringHelper";
+import Str from "@/utilities/Str";
 
 function UserCheck(props) {
     const { className, ...attrs } = props;

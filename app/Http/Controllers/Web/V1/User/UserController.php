@@ -4,16 +4,27 @@ namespace App\Http\Controllers\Web\V1\User;
 
 use App\Helpers\Http;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\User\{
+    CreateRequest,
+    DestroyRequest,
+    EditRequest,
+    IndexRequest,
+    ShowRequest,
+    StoreRequest,
+    UpdateRequest,
+};
 use Exception;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Jenssegers\Agent\Agent;
 
 class UserController extends Controller
 {
-    public function index(Request $request)
+    public function index(IndexRequest $request)
     {
         try {
             $response = Http::withAuthToken()
+                ->withUserAgent($request->userAgent())
                 ->acceptJson()
                 ->withQueryParameters($request->all())
                 ->get(env('API_BASE_URL') . '/users');
@@ -27,6 +38,7 @@ class UserController extends Controller
                 'users'
             ));
         } catch (Exception $exception) {
+            dd($exception);
             return redirect()
                 ->route('sign-in.index')
                 ->withErrors([$exception->getMessage()]);
@@ -34,10 +46,11 @@ class UserController extends Controller
     }
 
 
-    public function create()
+    public function create(CreateRequest $request)
     {
         try {
             $response = Http::withAuthToken()
+                ->withUserAgent($request->userAgent())
                 ->acceptJson()
                 ->get(env('API_BASE_URL') . '/users/roles');
 
@@ -57,14 +70,16 @@ class UserController extends Controller
     }
 
 
-    public function edit(string $userId)
+    public function edit(EditRequest $request, string $userId)
     {
         try {
             $userRes = Http::withAuthToken()
+                ->withUserAgent($request->userAgent())
                 ->acceptJson()
                 ->get(env('API_BASE_URL') . "/users/$userId");
 
             $rolesRes = Http::withAuthToken()
+                ->withUserAgent($request->userAgent())
                 ->acceptJson()
                 ->get(env('API_BASE_URL') . '/users/roles');
 
@@ -88,10 +103,11 @@ class UserController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         try {
             $response = Http::withAuthToken()
+                ->withUserAgent($request->userAgent())
                 ->acceptJson()
                 ->post(env('API_BASE_URL') . '/users', [
                     "roleId"        => $request->roleId,
@@ -119,10 +135,11 @@ class UserController extends Controller
     }
 
 
-    public function update(Request $request, string $userId)
+    public function update(UpdateRequest $request, string $userId)
     {
         try {
             $response = Http::withAuthToken()
+                ->withUserAgent($request->userAgent())
                 ->acceptJson()
                 ->post(env('API_BASE_URL') . "/users/$userId", [
                     "_method"       => "PATCH",
@@ -150,10 +167,11 @@ class UserController extends Controller
     }
 
 
-    public function destroy(Request $request, string $userId)
+    public function destroy(DestroyRequest $request, string $userId)
     {
         try {
             $response = Http::withAuthToken()
+                ->withUserAgent($request->userAgent())
                 ->acceptJson()
                 ->delete(env('API_BASE_URL') . "/users/$userId");
 

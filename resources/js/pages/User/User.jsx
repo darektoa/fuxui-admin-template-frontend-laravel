@@ -20,16 +20,18 @@ import {
     useDisclosure,
 } from "@nextui-org/react";
 import { FeatherIcon } from "@/components/Icon";
-import { router } from '@inertiajs/react'
+import { router } from "@inertiajs/react";
+import { useLocation } from "react-router";
+import isAuthorized from "@/utilities/isAuthorized";
 import Modal from "@/components/Modal";
+import Permission from "@/components/Permission";
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
 
 function User() {
     const modalDeleteConfirm = useDisclosure();
     const { search } = useLocation();
-    const searches = new URLSearchParams(search)
-    const { CSRF_TOKEN, users } = usePage().props;
+    const searches = new URLSearchParams(search);
+    const { CSRF_TOKEN, users, userPermissions } = usePage().props;
     const [show, setShow] = useState({
         delete: null,
         filter: null,
@@ -58,29 +60,41 @@ function User() {
                             Create a user role
                         </p>
                     </div>
-                    <form action="" method="GET" className="mx-auto flex gap-2">
-                        <Input
-                            isClearable
-                            type="text"
-                            placeholder="Search . . ."
-                            name="search"
-                            variant="flat"
-                            defaultValue={searches.get('search')}
-                            className=""
-                            classNames={{
-                                inputWrapper: "focus-within:ring-2",
-                            }}
-                        />
-                        <Button
-                            isIconOnly
-                            color="primary"
-                            type="submit"
-                            className=""
+                    <Permission permissions="01JDKB58YQNTN1HHF0TBKVP67X">
+                        <form
+                            action=""
+                            method="GET"
+                            className="mx-auto flex gap-2"
                         >
-                            <FeatherIcon.Search className="size-5" />
-                        </Button>
-                    </form>
+                            <Input
+                                isClearable
+                                type="text"
+                                placeholder="Search . . ."
+                                name="search"
+                                variant="flat"
+                                defaultValue={searches.get("search")}
+                                className=""
+                                classNames={{
+                                    inputWrapper: "focus-within:ring-2",
+                                }}
+                            />
+                            <Button
+                                isIconOnly
+                                color="primary"
+                                type="submit"
+                                className=""
+                            >
+                                <FeatherIcon.Search className="size-5" />
+                            </Button>
+                        </form>
+                    </Permission>
                     <Button
+                        isDisabled={
+                            !isAuthorized(
+                                userPermissions,
+                                "01JDKB58YQNTN1HHF0TBKVP67Y"
+                            )
+                        }
                         as={Link}
                         href="users/create"
                         color="primary"
@@ -94,6 +108,12 @@ function User() {
                     <Table
                         isHeaderSticky
                         removeWrapper
+                        hidden={
+                            !isAuthorized(
+                                userPermissions,
+                                "01JDKB58YQNTN1HHF0TBKVP67X"
+                            )
+                        }
                         aria-label="List table"
                         className="col-span-12"
                         color={"primary"}
@@ -132,15 +152,37 @@ function User() {
                                                 </span>
                                             </Tooltip> */}
                                             <Tooltip content="Edit user">
-                                                <a href={`users/${user?.id}/edit`} className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                                                <Button
+                                                    isIconOnly
+                                                    isDisabled={
+                                                        !isAuthorized(
+                                                            userPermissions,
+                                                            "01JDKB58YQNTN1HHF0TBKVP680"
+                                                        )
+                                                    }
+                                                    as="a"
+                                                    href={`users/${user?.id}/edit`}
+                                                    color="secondary"
+                                                    variant="light"
+                                                    className="text-lg text-default-400 cursor-pointer active:opacity-50"
+                                                >
                                                     <FeatherIcon.Edit className="size-5 mx-1" />
-                                                </a>
+                                                </Button>
                                             </Tooltip>
                                             <Tooltip
                                                 color="danger"
                                                 content="Delete user"
                                             >
-                                                <button
+                                                <Button
+                                                    isIconOnly
+                                                    isDisabled={
+                                                        !isAuthorized(
+                                                            userPermissions,
+                                                            "01JDKB58YQNTN1HHF0TBKVP681"
+                                                        )
+                                                    }
+                                                    color="secondary"
+                                                    variant="light"
                                                     className="text-lg text-danger cursor-pointer active:opacity-50"
                                                     onClick={() => {
                                                         modalDeleteConfirm.onOpen();
@@ -151,7 +193,7 @@ function User() {
                                                     }}
                                                 >
                                                     <FeatherIcon.Trash className="size-5 mx-1" />
-                                                </button>
+                                                </Button>
                                             </Tooltip>
                                         </div>
                                     </TableCell>
@@ -171,8 +213,7 @@ function User() {
                     <>
                         This action will disable{" "}
                         <span className="font-bold">
-                            {show?.delete?.firstname}{" "}
-                            {show?.delete?.lastname}
+                            {show?.delete?.firstname} {show?.delete?.lastname}
                         </span>{" "}
                         user account permanently! Are you sure?
                     </>

@@ -1,10 +1,16 @@
-import './style.css';
-import React, { useEffect, useState } from 'react';
-import Str from '../../utilities/StringHelper';
+import "./style.css";
+import React, { useEffect, useState } from "react";
+import Str from "../../utilities/Str";
 
 function Modal(props) {
     const {
-        children, className, onClose, onShow, show, wrapperClassName, ...attrs
+        children,
+        className,
+        onClose,
+        onShow,
+        show,
+        wrapperClassName,
+        ...attrs
     } = props;
     const [showMe, setShowMe] = useState(show);
 
@@ -26,15 +32,15 @@ function Modal(props) {
         <div
             onClick={closeHandle}
             className={Str.joinClassName(
-                'wrapper-modal-component',
-                showMe || 'wrapper-modal-component--hide',
-                wrapperClassName,
+                "wrapper-modal-component",
+                showMe || "wrapper-modal-component--hide",
+                wrapperClassName
             )}
         >
             <section
                 {...attrs}
                 onClick={(e) => e.stopPropagation()}
-                className={Str.joinClassName('modal-component', className)}
+                className={Str.joinClassName("modal-component", className)}
             >
                 {children}
             </section>

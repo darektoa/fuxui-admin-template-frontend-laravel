@@ -1,6 +1,6 @@
-import './style.css';
-import React from 'react';
-import Str from '@/utilities/StringHelper';
+import "./style.css";
+import React from "react";
+import Str from "@/utilities/Str";
 
 function Check(props) {
     const { className, ...attrs } = props;
@@ -17,7 +17,7 @@ function Check(props) {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className={Str.joinClassName('feather-icon', className)}
+            className={Str.joinClassName("feather-icon", className)}
         >
             <polyline points="20 6 9 17 4 12" />
         </svg>

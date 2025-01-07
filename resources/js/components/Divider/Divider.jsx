@@ -1,6 +1,6 @@
-import './style.css';
-import React from 'react';
-import Str from '@/utilities/StringHelper';
+import "./style.css";
+import React from "react";
+import Str from "@/utilities/Str";
 
 function Divider(props) {
     const { className, ...attrs } = props;
@@ -8,7 +8,7 @@ function Divider(props) {
     return (
         <hr
             {...attrs}
-            className={Str.joinClassName('divider-component', className)}
+            className={Str.joinClassName("divider-component", className)}
         />
     );
 }

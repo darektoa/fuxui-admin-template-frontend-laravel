@@ -16,6 +16,11 @@ class SignInController extends Controller
         return Inertia::render('Routes');
     }
 
+    public function face()
+    {
+        return Inertia::render('Routes');
+    }
+
 
     public function store(Request $request)
     {
@@ -24,6 +29,23 @@ class SignInController extends Controller
                 'username'  => $request->username,
                 'password'  => $request->password,
             ]);
+
+            return redirect()->route('home.index');
+
+        } catch (RequestException $exception) {
+            Session::flush();
+            return redirect()->route('login');
+
+        } catch (\Exception $exception) {
+            return back()
+                ->withInput();
+        }
+    }
+
+    public function storeFace(Request $request)
+    {
+        try  {
+            $user = AuthHelper::login($request->email);
 
             return redirect()->route('home.index');
 

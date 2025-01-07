@@ -1,6 +1,6 @@
-import './style.css';
-import React from 'react';
-import Str from '@/utilities/StringHelper';
+import "./style.css";
+import React from "react";
+import Str from "@/utilities/Str";
 
 function Illustration(props) {
     const { className, path, ...attrs } = props;
@@ -8,7 +8,7 @@ function Illustration(props) {
     return (
         <div
             {...attrs}
-            className={Str.joinClassName('illustration-component', className)}
+            className={Str.joinClassName("illustration-component", className)}
             style={{ backgroundImage: `url('/illustrations/${path}')` }}
         />
     );

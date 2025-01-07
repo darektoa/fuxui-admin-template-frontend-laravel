@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import Button from '../../Button';
-import Str from '../../../utilities/StringHelper';
+import React, { useEffect, useState } from "react";
+import Button from "../../Button";
+import Str from "../../../utilities/Str";
 
 function Confirm(props) {
-    const {
-        children, className, onClose, onShow, onSubmit, show, ...attrs
-    } = props;
+    const { children, className, onClose, onShow, onSubmit, show, ...attrs } =
+        props;
     const [showMe, setShowMe] = useState(show);
 
     const closeHandle = () => {
@@ -33,15 +32,20 @@ function Confirm(props) {
         <div
             onClick={closeHandle}
             className={Str.joinClassName(
-                'fixed top-0 left-0 flex h-screen w-screen items-center justify-center bg-slate-900 bg-opacity-10 transition-all duration-200',
-                showMe || 'scale-0 opacity-0',
+                "fixed top-0 left-0 flex h-screen w-screen items-center justify-center bg-slate-900 bg-opacity-10 transition-all duration-200",
+                showMe || "scale-0 opacity-0"
             )}
         >
             <section
                 {...attrs}
-                className={Str.joinClassName('w-11/12 max-w-lg rounded-xl bg-white p-11', className)}
+                className={Str.joinClassName(
+                    "w-11/12 max-w-lg rounded-xl bg-white p-11",
+                    className
+                )}
             >
-                <div className="flex w-full flex-col items-center text-center">{children}</div>
+                <div className="flex w-full flex-col items-center text-center">
+                    {children}
+                </div>
                 <div className="flex justify-center font-semibold">
                     <Button
                         className="mr-5 bg-[#F4F4F4] px-12 text-[#4A4A4A]"

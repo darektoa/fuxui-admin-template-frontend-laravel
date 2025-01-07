@@ -4,16 +4,26 @@ namespace App\Http\Controllers\Web\V1\User;
 
 use App\Helpers\Http;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\User\Role\{
+    CreateRequest,
+    DestroyRequest,
+    EditRequest,
+    IndexRequest,
+    ShowRequest,
+    StoreRequest,
+    UpdateRequest,
+};
 use Exception;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class RoleController extends Controller
 {
-    public function index()
+    public function index(IndexRequest $request)
     {
         try {
             $response = Http::withAuthToken()
+                ->withUserAgent($request->userAgent())
                 ->acceptJson()
                 ->get(env('API_BASE_URL') . '/users/roles');
 
@@ -33,7 +43,7 @@ class RoleController extends Controller
     }
 
 
-    public function create()
+    public function create(CreateRequest $request)
     {
         try {
             return Inertia::render('Routes');
@@ -45,14 +55,16 @@ class RoleController extends Controller
     }
 
 
-    public function edit(string $roleId)
+    public function edit(EditRequest $request, string $roleId)
     {
         try {
             $roleRes = Http::withAuthToken()
+                ->withUserAgent($request->userAgent())
                 ->acceptJson()
                 ->get(env('API_BASE_URL') . "/users/roles/$roleId");
 
             $menuPermRes = Http::withAuthToken()
+                ->withUserAgent($request->userAgent())
                 ->acceptJson()
                 ->get(env('API_BASE_URL') . "/menus/permissions");
 
@@ -80,6 +92,7 @@ class RoleController extends Controller
     {
         try {
             $response = Http::withAuthToken()
+                ->withUserAgent($request->userAgent())
                 ->acceptJson()
                 ->post(env('API_BASE_URL') . '/users/roles', [
                     "name"              => $request->name,
@@ -106,6 +119,7 @@ class RoleController extends Controller
         try {
             // dd($request->all());
             $response = Http::withAuthToken()
+                ->withUserAgent($request->userAgent())
                 ->acceptJson()
                 ->post(env('API_BASE_URL') . "/users/roles/$roleId", [
                     "_method"           => "PUT",
@@ -133,6 +147,7 @@ class RoleController extends Controller
     {
         try {
             $response = Http::withAuthToken()
+                ->withUserAgent($request->userAgent())
                 ->acceptJson()
                 ->delete(env('API_BASE_URL') . "/users/roles/$roleId");
 

@@ -1,6 +1,6 @@
-import './style.css';
-import React from 'react';
-import Str from '@/utilities/StringHelper';
+import "./style.css";
+import React from "react";
+import Str from "@/utilities/Str";
 
 function ChevronRight(props) {
     const { className, ...attrs } = props;
@@ -17,7 +17,7 @@ function ChevronRight(props) {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className={Str.joinClassName('feather-icon', className)}
+            className={Str.joinClassName("feather-icon", className)}
         >
             <polyline points="9 18 15 12 9 6"></polyline>
         </svg>

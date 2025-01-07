@@ -1,20 +1,20 @@
-import { Route, Routes } from 'react-router-dom';
-import Auth from '@/pages/Auth';
-import ChangePassword from '@/pages/ChangePassword';
-import Content from '@/pages/Content';
-import Home from '@/pages/Home';
-import Layout from '@/layouts';
-import Log from '@/pages/Log';
-import Maintenance from '@/pages/Maintenance';
-import Menu from '@/pages/Menu';
-import Profile from '@/pages/Profile';
-import React from 'react';
-import User from '@/pages/User';
+import { Route, Routes } from "react-router";
+import Auth from "@/pages/Auth";
+import ChangePassword from "@/pages/ChangePassword";
+import Content from "@/pages/Content";
+import Home from "@/pages/Home";
+import Layout from "@/layouts";
+import Log from "@/pages/Log";
+import Maintenance from "@/pages/Maintenance";
+import Menu from "@/pages/Menu";
+import Profile from "@/pages/Profile";
+import React from "react";
+import Setting from "@/pages/Setting";
+import User from "@/pages/User";
 
 function AppRoutes() {
     return (
         <Routes>
-
             {/*
                 AUTHENTICATION LAYOUT
             */}
@@ -31,14 +31,16 @@ function AppRoutes() {
                     <Route path=":token" element={<Auth.ResetPassword />} />
                 </Route>
 
-                <Route path="/sign-in" element={<Auth.SignIn />} />
+                <Route path="/sign-in">
+                    <Route index element={<Auth.SignIn />} />
+                    <Route path="face" element={<Auth.SignIn.Face />} />
+                </Route>
 
                 <Route path="/sign-up">
                     <Route index element={<Auth.SignUp />} />
                     <Route path="success" element={<Auth.SignUp.Success />} />
                 </Route>
             </Route>
-
 
             {/*
                 SIDEBAR LAYOUT
@@ -48,7 +50,16 @@ function AppRoutes() {
 
                 <Route path="/contents">
                     <Route index element={<Content />} />
-                    <Route path="types" element={<Content.Type />} />
+
+                    <Route path="types">
+                        <Route index element={<Content.Type />} />
+                        <Route path="create" element={<Content.Type />} />
+                        <Route
+                            path=":contentId/edit"
+                            element={<Content.Type.Edit />}
+                        />
+                    </Route>
+
                     <Route path=":contentId" element={<Content />} />
                 </Route>
 
@@ -62,24 +73,58 @@ function AppRoutes() {
                 <Route path="/menus">
                     <Route index element={<Menu />} />
                     <Route path="create" element={<Menu />} />
-                    <Route path=":id/edit" element={<Menu />} />
 
                     <Route path="permissions">
                         <Route index element={<Menu.Permission />} />
                         <Route path="create" element={<Menu.Permission />} />
-                        <Route path=":id/edit" element={<Menu.Permission />} />
 
                         <Route path="types">
                             <Route index element={<Menu.Permission.Type />} />
-                            <Route path="create" element={<Menu.Permission.Type />} />
-                            <Route path=":id/edit" element={<Menu.Permission.Type />} />
+                            <Route
+                                path="create"
+                                element={<Menu.Permission.Type />}
+                            />
+                            <Route
+                                path=":typeId/edit"
+                                element={<Menu.Permission.Type.Edit />}
+                            />
                         </Route>
+
+                        <Route
+                            path=":permissionId/edit"
+                            element={<Menu.Permission.Edit />}
+                        />
                     </Route>
+
+                    <Route path=":menuId" element={<Menu />} />
                 </Route>
 
                 <Route path="/profile">
                     <Route index element={<Profile />} />
-                    <Route path="edit" element={<User />} />
+                    <Route path="edit" element={<Profile />} />
+                </Route>
+
+                <Route path="/settings">
+                    <Route index element={<Setting />} />
+
+                    <Route path="security">
+                        <Route index element={<Setting.Security />} />
+
+                        <Route path="face-sign-in">
+                            <Route
+                                index
+                                element={<Setting.Security.FaceSignIn />}
+                            />
+                            <Route
+                                path="create"
+                                element={<Setting.Security.FaceSignIn.Create />}
+                            />
+                            <Route
+                                path=":faceId/edit"
+                                element={<Setting.Security.FaceSignIn />}
+                            />
+                        </Route>
+                    </Route>
                 </Route>
 
                 <Route path="/users">
@@ -89,10 +134,13 @@ function AppRoutes() {
                     <Route path="roles">
                         <Route index element={<User.Role />} />
                         <Route path="create" element={<User.Role.Create />} />
-                        <Route path=":id/edit" element={<User.Role.Edit />} />
+                        <Route
+                            path=":roleId/edit"
+                            element={<User.Role.Edit />}
+                        />
                     </Route>
 
-                    <Route path=":id/edit" element={<User.Edit />} />
+                    <Route path=":userId/edit" element={<User.Edit />} />
                 </Route>
 
                 <Route path="/changepassword">

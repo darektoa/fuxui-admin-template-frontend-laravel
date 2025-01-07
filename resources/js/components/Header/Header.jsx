@@ -1,6 +1,6 @@
-import './style.css';
-import React from 'react';
-import Str from '@/utilities/StringHelper';
+import "./style.css";
+import React from "react";
+import Str from "@/utilities/Str";
 
 function Header(props) {
     const { children, className, ...attrs } = props;
@@ -8,7 +8,7 @@ function Header(props) {
     return (
         <header
             {...attrs}
-            className={Str.joinClassName('header-component', className)}
+            className={Str.joinClassName("header-component", className)}
         >
             {children}
         </header>

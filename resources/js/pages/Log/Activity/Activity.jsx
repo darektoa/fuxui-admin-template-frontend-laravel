@@ -1,76 +1,69 @@
 import "./style.css";
-import {
-    Button,
-    Input,
-    useDisclosure,
-} from "@nextui-org/react";
-import { FeatherIcon } from "@/components/Icon";
-import { router, usePage } from "@inertiajs/react";
+import { parseDate } from "@internationalized/date";
+import { useEventHandler, usePageLoaded } from "./_hooks";
+import { useForm } from "react-hook-form";
+import { useShallow } from "zustand/shallow";
 import Partial from "./_partials";
-import React, { useMemo, useState } from "react";
-import useForm from "@/hooks/useForm";
+import React, { useMemo } from "react";
+import usePageStore from "./_stores";
 
 function Activitity() {
-    const modalFilter = useDisclosure();
-    const { CSRF_TOKEN, activities } = usePage().props;
-    const [show, setShow] = useState({
-        delete: null,
-        restore: null,
-        filter: null,
-        Search: null,
-    });
+    usePageLoaded();
 
-    const { values, setValues, handleChange } = useForm({
-        startDate: null,
-        endDate: null,
-    });
+    const { filterOnClose, filterOnSubmit } = useEventHandler();
+    const { control, handleSubmit, setValue } = useForm();
+    const { filter, show } = usePageStore(
+        useShallow((state) => ({
+            filter: state.table.filter,
+            show: state.table.show,
+        }))
+    );
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (show.restore) router.patch(`/users/activities/${show.restore?.id}/restore`);
-        else if (show.delete) router.delete(`/users/activities/${show.delete?.id}`);
-        else router.get(`?startDate=${values.startDate}&endDate=${values.endDate}`);
-    };
+    console.log('Activity Page');
 
-    return (
+    return useMemo(() => (
         <main className="grid grid-cols-12 w-full gap-6 py-6">
             <Partial.Breadcrumbs />
 
-            <div className="col-span-12 flex gap-4">
-                <Button
-                    isIconOnly
-                    color="primary"
-                    variant="flat"
-                    className="p-1"
-                    onClick={() => {
-                        modalFilter.onOpen();
-                    }}
-                >
-                    <FeatherIcon.Filter className="size-5" />
-                </Button>
-                {/* <Input
-                    isClearable
-                    className="w-full sm:max-w-xs"
-                    placeholder="Search here . . ."
-                    startContent={<FeatherIcon.Search className="size-5 shrink-0" />}
-                    value={values.search}
-                    onValueChange={handleChange}
-                /> */}
-            </div>
-
-            <Partial.ActivityTable />
+            <Partial.ActivityTableCard />
 
             <Partial.ModalFilter
-                isOpen={modalFilter.isOpen}
-                onOpenChange={modalFilter.onOpenChange}
+                isOpen={Boolean(show.filterModal)}
                 placement="top-center"
-                values={values}
-                setValues={setValues}
-                onChange={handleChange}
-                onSubmit={handleSubmit}
+                onClose={filterOnClose}
+                form={{
+                    action: "",
+                    method: "",
+                    onSubmit: handleSubmit(filterOnSubmit),
+                }}
+                fields={{
+                    dateRange: {
+                        control: control,
+                        name: "startDate",
+                        label: "Tanggal",
+                        defaultValue: {
+                            start: filter.startDate
+                                ? parseDate(filter.startDate)
+                                : null,
+                            end: filter.endDate
+                                ? parseDate(filter.endDate)
+                                : null,
+                        },
+                        onChange: ({ start, end }) => {
+                            setValue(
+                                "startDate",
+                                start.toString().split("T")[0]
+                            );
+                            setValue(
+                                "endDate",
+                                end.toString().split("T")[0]
+                            );
+                        },
+                    },
+                }}
             />
         </main>
-    );
+    ), [control, filter, show]);
 }
 
 export default Activitity;

@@ -1,6 +1,6 @@
-import './style.css';
-import React from 'react';
-import Str from '@/utilities/StringHelper';
+import "./style.css";
+import React from "react";
+import Str from "@/utilities/Str";
 
 function Icon(props) {
     const { className, path, ...attrs } = props;
@@ -8,7 +8,7 @@ function Icon(props) {
     return (
         <div
             {...attrs}
-            className={Str.joinClassName('icon-component', className)}
+            className={Str.joinClassName("icon-component", className)}
             style={{ backgroundImage: `url('/icons/${path}')` }}
         />
     );

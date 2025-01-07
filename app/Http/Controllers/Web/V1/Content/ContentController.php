@@ -4,6 +4,13 @@ namespace App\Http\Controllers\Web\V1\Content;
 
 use App\Helpers\Http;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Content\{
+    DestroyRequest,
+    IndexRequest,
+    ShowRequest,
+    StoreRequest,
+    UpdateRequest,
+};
 use Exception;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -13,108 +20,136 @@ class ContentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(IndexRequest $request)
     {
         try {
             $response = Http::withAuthToken()
+                ->withUserAgent($request->userAgent())
                 ->acceptJson()
-                ->get(env('API_BASE_URL') . '/contents/directories');
+                ->get(env("API_BASE_URL") . "/contents/directories");
 
             $response->throwIfClientError();
             $response->throwIfServerError();
 
             $contents = $response->object()->data;
 
-            return Inertia::render('Routes', compact(
-                'contents'
+            return Inertia::render("Routes", compact(
+                "contents"
             ));
         } catch (Exception $e) {
-            return redirect()->route('sign-in.index');
+            return redirect()->route("sign-in.index");
         }
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         try {
             $response = Http::withAuthToken()
+                ->withUserAgent($request->userAgent())
                 ->acceptJson()
                 ->withBody($request->toArray())
-                ->post(env('API_BASE_URL') . '/contents');
+                ->post(env("API_BASE_URL") . "/contents");
 
             $response->throwIfClientError();
             $response->throwIfServerError();
 
             $contents = $response->object()->data;
 
-            return Inertia::render('Routes', compact(
-                'contents'
+            return Inertia::render("Routes", compact(
+                "contents"
             ));
         } catch (Exception $e) {
-            return redirect()->route('sign-in.index');
+            return redirect()->route("sign-in.index");
         }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(ShowRequest $request, string $id)
     {
         try {
-            $response = Http::withAuthToken()
+            $resContent = Http::withAuthToken()
+                ->withUserAgent($request->userAgent())
                 ->acceptJson()
-                ->get(env('API_BASE_URL') . '/contents/directories');
+                ->get(env("API_BASE_URL") . "/contents/$id");
+            $resContents = Http::withAuthToken()
+                ->withUserAgent($request->userAgent())
+                ->acceptJson()
+                ->get(env("API_BASE_URL") . "/contents/directories");
 
-            $response->throwIfClientError();
-            $response->throwIfServerError();
+            $resContent->throwIfClientError();
+            $resContent->throwIfServerError();
+            $resContents->throwIfClientError();
+            $resContents->throwIfServerError();
 
-            $contents = $response->object()->data;
+            $content = $resContent->object()->data;
+            $contents = $resContents->object()->data;
 
-            return Inertia::render('Routes', compact(
-                'contents'
+            return Inertia::render("Routes", compact(
+                "content",
+                "contents",
             ));
         } catch (Exception $e) {
-            return redirect()->route('sign-in.index');
+            return redirect()->route("sign-in.index");
         }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateRequest $request, string $id)
     {
         try {
-            $valueFile = $request->file('value');
+            $valueFile = $request->file("value");
             $response = Http::withAuthToken()
+                ->withUserAgent($request->userAgent())
                 ->acceptJson()
                 ->asMultipart()
                 ->when($valueFile && $valueFile->isReadable(), fn($http) => (
                     $http->attach(
-                        'value',
+                        "value",
                         $valueFile->getContent(),
                         $valueFile->getClientOriginalName(),
                     )
                 ))
-                ->post(env('API_BASE_URL') . "/contents/$id", array_merge($request->toArray(), [
-                    '_method'   => 'PUT',
+                ->post(env("API_BASE_URL") . "/contents/$id", array_merge($request->toArray(), [
+                    "_method"   => "PUT",
                 ]));
 
             $response->throwIfClientError();
             $response->throwIfServerError();
 
-            return back();
-        } catch(Exception $e) {
-            return redirect()->route('sign-in.index');
+            return back()
+                ->with("success", "Successfully updated content");;
+        } catch (Exception $e) {
+            return redirect()->route("sign-in.index");
         }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(DestroyRequest $request, string $id)
     {
-        //
+        try {
+            $response = Http::withAuthToken()
+                ->withUserAgent($request->userAgent())
+                ->acceptJson()
+                ->delete(env("API_BASE_URL") . "/contents/$id");
+
+            $response->throwIfClientError();
+            $response->throwIfServerError();
+
+            return back()
+                ->with("success", "Successfully deleted content");
+        } catch (Exception $exception) {
+            return redirect()
+                ->back()
+                ->withErrors([$exception->getMessage()]);
+        }
     }
 }

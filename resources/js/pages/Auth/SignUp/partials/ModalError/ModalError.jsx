@@ -1,20 +1,21 @@
-import './style.css';
-import React from 'react';
-import Button from '@/components/Button';
-import Card from '@/components/Card';
-import Modal from '@/components/Modal';
-import Str from '@/utilities/StringHelper';
+import "./style.css";
+import React from "react";
+import Button from "@/components/Button";
+import Card from "@/components/Card";
+import Modal from "@/components/Modal";
+import Str from "@/utilities/Str";
 
 function ModalError(props) {
-    const {
-        className, data, onClose, ...attrs
-    } = props;
+    const { className, data, onClose, ...attrs } = props;
 
     return (
         <Modal
             {...attrs}
             onClose={onClose}
-            className={Str.joinClassName('auth-signup-component-modal-error scrollbar-thin', className)}
+            className={Str.joinClassName(
+                "auth-signup-component-modal-error scrollbar-thin",
+                className
+            )}
         >
             <Card className="scrollbar-thin max-h-[72vh] w-full overflow-auto p-5 pt-0">
                 <header
@@ -30,7 +31,7 @@ function ModalError(props) {
                     </Button>
                 </header>
                 <section className="flex w-auto flex-col p-6 text-red-600">
-                    {typeof data === 'string' ? (
+                    {typeof data === "string" ? (
                         <p
                             className="text-inherit"
                             dangerouslySetInnerHTML={{ __html: data }}

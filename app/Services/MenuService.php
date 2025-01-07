@@ -5,11 +5,13 @@ namespace App\Services;
 use App\Helpers\Http;
 use Exception;
 
-class MenuService {
+class MenuService
+{
     public function get()
     {
         try {
             $response = Http::withAuthToken()
+                ->withUserAgent(request()->userAgent())
                 ->acceptJson()
                 ->get(env('API_BASE_URL') . '/menus');
 
@@ -19,7 +21,7 @@ class MenuService {
             $data = $response->object()->data;
 
             return $data;
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return null;
         }
     }

@@ -9,7 +9,8 @@ use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\{Http, Session};
 use Illuminate\Support\Facades\Auth;
 
-class AuthHelper {
+class AuthHelper
+{
     /**
      * Attempt to login with an access token from API
      *
@@ -20,6 +21,7 @@ class AuthHelper {
     {
         $endpoint   = env('API_BASE_URL') . '/oauth/token';
         $response   = Http::acceptJson()
+            // ->withHeaders(request()->header())
             ->asJson()
             ->post($endpoint, collect($crendentials)->merge([
                 'grant_type'    => 'password',
@@ -28,11 +30,49 @@ class AuthHelper {
                 'scope'         => '',
             ])->toArray());
 
-        if($response->serverError()) throw new ResponseException(
-            'Server Error', $response->status()
+        if ($response->serverError()) throw new ResponseException(
+            'Server Error',
+            $response->status()
         );
 
-        if($response->badRequest()) {
+        if ($response->badRequest()) {
+            $res     = $response->object();
+            $message = $res->message ?? 'Account didn\'t match';
+            $code    = $res->code ?? 404;
+            throw new ResponseException($message, $code, $res);
+        };
+
+        $data = (object) CollectionHelper::camelKeys($response->json())->toArray();
+        Session::put('token', $data);
+
+        return $data;
+    }
+
+
+    /**
+     * Login by email for retrieve an access token from API
+     *
+     * @param array|\Illuminate\Support\Collection $credentials
+     * @return object
+     */
+    public static function login($email): object
+    {
+        $endpoint   = env('API_BASE_URL') . '/sign-in/face';
+        $response   = Http::acceptJson()
+            // ->withHeaders(request()->header())
+            ->asJson()
+            ->post($endpoint, [
+                'email'         => $email,
+                'client_id'     => env('API_OAUTH_CLIENT_ID'),
+                'client_secret' => env('API_OAUTH_CLIENT_SECRET'),
+            ]);
+
+        if ($response->serverError()) throw new ResponseException(
+            'Server Error',
+            $response->status()
+        );
+
+        if ($response->badRequest()) {
             $res     = $response->object();
             $message = $res->message ?? 'Account didn\'t match';
             $code    = $res->code ?? 404;
@@ -69,15 +109,16 @@ class AuthHelper {
         try {
             $user = Session::get("user");
 
-            if($user != null)
+            if ($user != null)
                 return (object) $user;
 
-            if(! AuthHelper::isLoggedIn())
+            if (! AuthHelper::isLoggedIn())
                 throw new ResponseException('Unauthorized', 403);
 
             $token      = AuthHelper::token();
             $endpoint   = env('API_BASE_URL') . '/profile';
             $response   = Http::acceptJson()
+                // ->withHeaders(request()->header())
                 ->asJson()
                 ->withToken(
                     token: $token->accessToken ?? null,
@@ -92,7 +133,7 @@ class AuthHelper {
             Session::put('user', $data);
 
             return $data;
-        } catch(Exception $exception) {
+        } catch (Exception $exception) {
             return null;
         }
     }
@@ -131,7 +172,7 @@ class AuthHelper {
      */
     public static function isLoggedIn(): bool
     {
-        if(! AuthHelper::accessToken()) {
+        if (! AuthHelper::accessToken()) {
             throw new ResponseException('Unauthorized', 401);
             return false;
         }

@@ -1,17 +1,19 @@
-import './style.css';
-import React from 'react';
-import Str from '@/utilities/StringHelper';
+import "./style.css";
+import React from "react";
+import Str from "@/utilities/Str";
 
 const Card = React.forwardRef((props, ref) => {
-    const {
-        children, className, disabled, ...attrs
-    } = props;
+    const { children, className, disabled, ...attrs } = props;
 
     return (
         <div
             {...attrs}
             ref={ref}
-            className={Str.joinClassName('card-component', className, disabled && 'card-component--disabled')}
+            className={Str.joinClassName(
+                "card-component",
+                className,
+                disabled && "card-component--disabled"
+            )}
         >
             {children}
         </div>

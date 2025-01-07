@@ -24,6 +24,8 @@ export interface IconComponent extends React.FC<IconProps> {
     Edit: React.FC;
     ExternalLink: React.FC;
     Eye: React.FC;
+    File: React.FC;
+    FileText: React.FC;
     Filter: React.FC;
     Hash: React.FC;
     Home: React.FC;
@@ -32,11 +34,13 @@ export interface IconComponent extends React.FC<IconProps> {
     Key: React.FC;
     Link: React.FC;
     Mail: React.FC;
+    MoreVertical: React.FC;
     Logout: React.FC;
     Phone: React.FC;
     Plus: React.FC;
     RefreshCw: React.FC;
     Search: React.FC;
+    Smile: React.FC;
     Tag: React.FC;
     Trash: React.FC;
     Type: React.FC;

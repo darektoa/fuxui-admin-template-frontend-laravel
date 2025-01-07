@@ -1,9 +1,9 @@
-import './style.css';
-import { Link } from 'react-router-dom';
-import React from 'react';
-import Str from '@/utilities/StringHelper';
-import Visibility from '../../Visibility';
-import Ripple from '../../Ripple';
+import "./style.css";
+import { Link } from "react-router";
+import React, {useMemo} from "react";
+import Str from "@/utilities/Str";
+import Visibility from "../../Visibility";
+import Ripple from "../../Ripple";
 
 const Item = React.forwardRef((props, ref) => {
     const {
@@ -12,44 +12,53 @@ const Item = React.forwardRef((props, ref) => {
         classNames,
         hidden,
         href,
+        target,
         isActive,
         itemObject,
         onClick,
         reload,
+        render = (item, child) => child,
         ...attrs
     } = props;
 
     const getAttr = (attrName) => {
         const attr = props?.[attrName];
 
-        if(typeof attr === 'function') return attr(itemObject);
+        if(attrName === "render") return attr ?? ((item, child) => child);
+        else if (typeof attr === "function") return attr({...props, data: itemObject});
         else return attr;
     };
 
-    return (
-        <Visibility hidden={getAttr('hidden')}>
+    return useMemo(() => (
+        <Visibility hidden={getAttr("hidden")}>
             <Ripple>
                 <li
                     ref={ref}
-                    onClick={(event) => onClick?.(event, itemObject)}
+                    onClick={(event) => onClick?.(event, {...props, data: itemObject})}
                     className={Str.joinClassName(
-                        'menu-item-component',
-                        getAttr('className'),
-                        getAttr('classNames')?.base
+                        "menu-item-component",
+                        getAttr("className"),
+                        getAttr("classNames")?.base
                     )}
                 >
-                    <Link reloadDocument={getAttr('reload')} to={getAttr('href')}
+                    <Link
+                        reloadDocument={getAttr("reload")}
+                        to={getAttr("href")}
+                        target={getAttr("target")}
                         className={Str.joinClassName(
-                            getAttr('classNames')?.link,
-                            getAttr('isActive') && 'active'
+                            getAttr("classNames")?.link,
+                            getAttr("isActive") && "active"
                         )}
                     >
-                        { getAttr('children') }
+                        {getAttr("render")(
+                            {...props, data: itemObject},
+                            getAttr("children")
+                        )}
                     </Link>
                 </li>
             </Ripple>
         </Visibility>
-    );
+    ), [props]);
 });
 
 export default Item;

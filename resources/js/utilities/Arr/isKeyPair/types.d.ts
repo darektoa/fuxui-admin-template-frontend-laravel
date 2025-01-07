@@ -1,0 +1,1 @@
+export type KeyPair = Record<string, any>;

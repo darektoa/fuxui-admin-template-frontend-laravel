@@ -1,7 +1,9 @@
-const { nextui } = require('@nextui-org/react');
+import { nextui } from '@nextui-org/react';
+import daisyui from 'daisyui';
+import themes from 'daisyui/src/theming/themes';
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
     content: [
         'resources/js/**/*.{js,jsx,ts,tsx}',
         'resources/views/**/*.blade.php',
@@ -33,8 +35,23 @@ module.exports = {
                     DEFAULT: '#3b82f6',
                 },
             },
-            maxWidth: {
+            maxHeight: {
+                '7xl': '1280px',
+                '6xl': '1152px',
+                '5xl': '1024px',
+                '4xl': '896px',
+                '3xl': '768px',
+                '2xl': '672px',
+                'xl': '576px',
+                'lg': '512px',
+                'md': '448px',
+                'sm': '384px',
+                'xs': '320px',
                 '2xs': '280px',
+                '3xs': '240px',
+            },
+            maxWidth: {
+                '2xs': '280px', // 290px
                 '3xs': '240px',
             },
             screens: {
@@ -44,7 +61,7 @@ module.exports = {
         },
     },
     plugins: [
-        require('daisyui'),
+        daisyui,
         nextui({
             prefix: "nextui", // prefix for themes variables
             addCommonColors: false, // override common colors (e.g. "blue", "green", "pink").
@@ -99,7 +116,7 @@ module.exports = {
         themes: [
             {
                 light: {
-                    ...require("daisyui/src/theming/themes")["light"],
+                    ...themes["light"],
                     accent: "#1e40af",
                     primary: "#2563eb",
                     secondary: "#9ca3af",
@@ -107,7 +124,7 @@ module.exports = {
             },
             {
                 dark: {
-                    ...require("daisyui/src/theming/themes")["dark"],
+                    ...themes["dark"],
                     accent: "#1e40af",
                     primary: "#2563eb",
                     secondary: "#9ca3af",

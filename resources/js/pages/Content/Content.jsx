@@ -10,27 +10,36 @@ import {
 import { FeatherIcon } from "@/components/Icon";
 import { useForm } from "@/hooks";
 import { usePage } from "@inertiajs/react";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import Menu from "@/components/Menu";
 import Partial from "./_partials";
 import React, { useEffect, useState } from "react";
-import toDataURL from "../../utilities/toDataURL";
+import isAuthorized from "@/utilities/isAuthorized";
+import toDataURL from "@/utilities/toDataURL";
+import Permission from "@/components/Permission";
+import Section from "@/components/Section";
 import Visibility from "@/components/Visibility";
 
 function Content() {
     const [content, setContent] = useState({});
     const [imagePreviewDataURL, setImagePreviewDataURL] = useState(null);
-    const { CSRF_TOKEN, contents } = usePage().props;
+    const {
+        CSRF_TOKEN,
+        contents,
+        content: currentContent,
+        userPermissions,
+    } = usePage().props;
     const { contentId } = useParams();
     const { handleChange, values, setValues } = useForm({
         value: null,
     });
 
     useEffect(() => {
-        if (values.value === null || typeof values.value !== "object") return;
+        const value = values.value;
+        if (value === null || typeof value !== "object") return;
 
-        toDataURL(values.value).then((value) => {
-            setImagePreviewDataURL(value);
+        toDataURL(value).then((val) => {
+            setImagePreviewDataURL(val);
         });
     }, [values.value]);
 
@@ -43,6 +52,10 @@ function Content() {
         }));
     }, [content]);
 
+    useEffect(() => {
+        if (contentId) setContent(currentContent);
+    }, []);
+
     return (
         <main className="grid grid-cols-12 w-full gap-6 py-6">
             <Breadcrumbs className="col-span-12">
@@ -51,11 +64,17 @@ function Content() {
                 <BreadcrumbItem>Contents</BreadcrumbItem>
             </Breadcrumbs>
 
-            <Card className="col-span-12 shadow-xl">
+            <Card
+                as={Section}
+                permissions="01JDKB58YQNTN1HHF0TBKVP68E"
+                className="col-span-12 shadow-xl"
+            >
                 <CardHeader className="w-full pt-6 px-6 flex gap-3">
                     <FeatherIcon.Box className="size-10 p-1 text-white rounded-md bg-gradient-primary bg-opacity-90 shrink-0" />
                     <div className="flex flex-col">
-                        <h3 className="font-bold text-lg uppercase">Contents</h3>
+                        <h3 className="font-bold text-lg uppercase">
+                            Contents
+                        </h3>
                         <p className="text-small text-default-500">
                             List of all content management
                         </p>
@@ -65,16 +84,14 @@ function Content() {
                     <Menu className="col-span-4 rounded-md bg-primary/5">
                         <Menu.Folders
                             data={contents}
-                            href={(item) => `/contents/${item?.id}`}
+                            href={(item) => `/contents/${item.data?.id}`}
                             reload={false}
                             isActive={(item) => {
-                                if (item.id != contentId) return;
-
-                                setContent(item);
+                                if (item.data?.id != contentId) return;
                                 return true;
                             }}
                             onClick={(event, item) => {
-                                setContent(item);
+                                setContent(item.data);
                             }}
                             attributeMaps={{
                                 children: "name",
@@ -116,13 +133,22 @@ function Content() {
                                 placeholder="Enter new value"
                                 onChange={handleChange}
                                 value={values?.value}
+                                isReadOnly={
+                                    !isAuthorized(
+                                        userPermissions,
+                                        "01JDKB58YQNTN1HHF0TBKVP68H"
+                                    )
+                                }
                                 imagePreviewSrc={
                                     imagePreviewDataURL ?? values?.value
                                 }
                             />
-                            <Button color="primary" type="submit">
-                                Update
-                            </Button>
+
+                            <Permission permissions="01JDKB58YQNTN1HHF0TBKVP68H">
+                                <Button color="primary" type="submit">
+                                    Update
+                                </Button>
+                            </Permission>
                         </Visibility>
                     </form>
                 </CardBody>

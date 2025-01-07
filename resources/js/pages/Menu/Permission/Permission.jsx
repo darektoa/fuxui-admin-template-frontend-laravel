@@ -16,6 +16,7 @@ import {
     Tooltip,
 } from "@nextui-org/react";
 import { FeatherIcon } from "@/components/Icon";
+import isAuthorized from "@/utilities/isAuthorized";
 import Partial from "./_partials";
 import React, { useState } from "react";
 

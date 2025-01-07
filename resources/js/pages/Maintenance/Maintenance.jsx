@@ -1,20 +1,18 @@
-import './style.css';
-import { Link } from 'react-router-dom';
-import { usePage } from '@inertiajs/react';
-import React from 'react';
-import Alert from '@/components/Alert';
-import Button from '@/components/Button';
-import Card from '@/components/Card';
+import "./style.css";
+import { Link } from "react-router";
+import { usePage } from "@inertiajs/react";
+import React from "react";
+import Alert from "@/components/Alert";
+import Button from "@/components/Button";
+import Card from "@/components/Card";
 
 function Maintenance() {
-    const {
-        CSRF_TOKEN, errors, inputs, flash,
-    } = usePage().props;
+    const { CSRF_TOKEN, errors, inputs, flash } = usePage().props;
 
     return (
         <main className="flex h-full w-full flex-col items-center justify-center p-10">
             <Alert
-                hidden={typeof errors !== 'string'}
+                hidden={typeof errors !== "string"}
                 className="mb-4 w-full max-w-xl bg-red-200 text-red-600"
             >
                 {errors}
@@ -44,7 +42,8 @@ function Maintenance() {
                         <span className="text-green-600"> 16.00 WIB</span>
                         .
                         <br />
-                        Silakan coba kunjungi halaman ini kembali di waktu tersebut.
+                        Silakan coba kunjungi halaman ini kembali di waktu
+                        tersebut.
                         <br />
                         Terimakasihhh. 😊
                     </p>

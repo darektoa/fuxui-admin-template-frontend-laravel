@@ -6,7 +6,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title></title>
         <link rel="icon" href="">
-        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
         @vite(['resources/css/app.css', 'resources/js/App.jsx'])
         @inertiaHead
     </head>

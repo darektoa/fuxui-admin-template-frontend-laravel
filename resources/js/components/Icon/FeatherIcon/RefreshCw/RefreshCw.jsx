@@ -1,6 +1,6 @@
-import './style.css';
-import React from 'react';
-import Str from '@/utilities/StringHelper';
+import "./style.css";
+import React from "react";
+import Str from "@/utilities/Str";
 
 function RefreshCw(props) {
     const { className, ...attrs } = props;
@@ -17,7 +17,7 @@ function RefreshCw(props) {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className={Str.joinClassName('feather-icon', className)}
+            className={Str.joinClassName("feather-icon", className)}
         >
             <polyline points="23 4 23 10 17 10" />
             <polyline points="1 20 1 14 7 14" />

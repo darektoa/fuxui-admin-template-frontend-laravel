@@ -6,11 +6,13 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
-class ContentService {
-    public function get(?Request $request=null)
+class ContentService
+{
+    public function get(?Request $request = null)
     {
         try {
             $response = Http::acceptJson()
+                ->withUserAgent(request()->userAgent())
                 ->when(!empty($request?->all()), fn($http) => (
                     $http->withQueryParameters($request->all())
                 ))
@@ -22,7 +24,7 @@ class ContentService {
             $data = $response->object()->data;
 
             return $data;
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return null;
         }
     }

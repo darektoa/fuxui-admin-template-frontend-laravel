@@ -1,6 +1,6 @@
-import './style.css';
-import React from 'react';
-import Str from '@/utilities/StringHelper';
+import "./style.css";
+import React from "react";
+import Str from "@/utilities/Str";
 
 function User(props) {
     const { className, ...attrs } = props;
@@ -17,14 +17,10 @@ function User(props) {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className={Str.joinClassName('feather-icon', className)}
+            className={Str.joinClassName("feather-icon", className)}
         >
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-            <circle
-                cx="12"
-                cy="7"
-                r="4"
-            />
+            <circle cx="12" cy="7" r="4" />
         </svg>
     );
 }

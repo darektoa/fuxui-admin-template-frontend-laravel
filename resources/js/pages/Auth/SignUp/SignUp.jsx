@@ -1,30 +1,29 @@
-import './style.css';
-import { usePage } from '@inertiajs/react';
-import React, { useState } from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
-import { NavLink } from 'react-router-dom';
-import Button from '@/components/Button';
-import Card from '@/components/Card';
-import Modal from '@/components/Modal';
-import Partial from './partials';
+import "./style.css";
+import { usePage } from "@inertiajs/react";
+import React, { useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
+import { NavLink } from "react-router";
+import Button from "@/components/Button";
+import Card from "@/components/Card";
+import Modal from "@/components/Modal";
+import Partial from "./partials";
 
 function SignUp() {
-    const {
-        CSRF_TOKEN, RECAPTCHA_SITE_KEY, errors, inputs, flash,
-    } = usePage().props;
+    const { CSRF_TOKEN, RECAPTCHA_SITE_KEY, errors, inputs, flash } =
+        usePage().props;
 
     const [show, setShow] = useState({
         error: flash.message || (Object.values(errors).length && flash.errors),
     });
 
     const [values, setValues] = useState({
-        recaptcha: '',
+        recaptcha: "",
     });
 
     const handleRecaptchaChange = (value) => {
         setValues((values) => ({
             ...values,
-            recaptcha: value || '',
+            recaptcha: value || "",
         }));
     };
 
@@ -33,27 +32,21 @@ function SignUp() {
             <Partial.ModalError
                 show={show.error}
                 data={errors}
-                onClose={() => setShow((states) => ({ ...states, error: false }))}
+                onClose={() =>
+                    setShow((states) => ({ ...states, error: false }))
+                }
             />
 
-            <form
-                action="/sign-up"
-                method="POST"
-                className="w-full max-w-lg"
-            >
-                <input
-                    type="hidden"
-                    name="_token"
-                    defaultValue={CSRF_TOKEN}
-                />
+            <form action="/sign-up" method="POST" className="w-full max-w-lg">
+                <input type="hidden" name="_token" defaultValue={CSRF_TOKEN} />
 
                 <Card className="mb-4 flex w-full flex-col border-t-4 border-t-primary-main">
-                    <h2 className="mb-4 text-lg font-bold">Account Credential</h2>
+                    <h2 className="mb-4 text-lg font-bold">
+                        Account Credential
+                    </h2>
 
                     <p className="mb-2">
-                        Email
-                        {' '}
-                        <span className="text-red-600">*</span>
+                        Email <span className="text-red-600">*</span>
                     </p>
                     <input
                         type="email"
@@ -64,11 +57,11 @@ function SignUp() {
                         className="mb-2 w-full rounded-md bg-gray-50 px-4 py-2"
                         autoFocus
                     />
-                    <small className="d-block mb-4 text-gray-600">You must be member of academy.dqlab.id</small>
+                    <small className="d-block mb-4 text-gray-600">
+                        You must be member of academy.dqlab.id
+                    </small>
                     <p className="mb-2">
-                        Password
-                        {' '}
-                        <span className="text-red-600">*</span>
+                        Password <span className="text-red-600">*</span>
                     </p>
                     <input
                         type="password"
@@ -78,9 +71,7 @@ function SignUp() {
                         className="mb-4 w-full rounded-md bg-gray-50 px-4 py-2"
                     />
                     <p className="mb-2">
-                        Confirm Password
-                        {' '}
-                        <span className="text-red-600">*</span>
+                        Confirm Password <span className="text-red-600">*</span>
                     </p>
                     <input
                         type="password"
@@ -91,11 +82,11 @@ function SignUp() {
                     />
                 </Card>
                 <Card className="mb-4 flex w-full flex-col border-t-4 border-t-primary-main">
-                    <h2 className="mb-4 text-lg font-bold">Account Information</h2>
+                    <h2 className="mb-4 text-lg font-bold">
+                        Account Information
+                    </h2>
                     <p className="mb-2">
-                        Full Name
-                        {' '}
-                        <span className="text-red-600">*</span>
+                        Full Name <span className="text-red-600">*</span>
                     </p>
                     <input
                         type="text"
@@ -106,9 +97,7 @@ function SignUp() {
                         className="mb-4 w-full rounded-md bg-gray-50 px-4 py-2"
                     />
                     <p className="mb-2">
-                        Affiliate Code
-                        {' '}
-                        <span className="text-red-600">*</span>
+                        Affiliate Code <span className="text-red-600">*</span>
                     </p>
                     <input
                         type="text"
@@ -122,9 +111,7 @@ function SignUp() {
                         Unique code for you to share in your promotions
                     </small>
                     <p className="mb-2">
-                        Birth date
-                        {' '}
-                        <span className="text-red-600">*</span>
+                        Birth date <span className="text-red-600">*</span>
                     </p>
                     <input
                         type="date"
@@ -135,8 +122,7 @@ function SignUp() {
                         className="mb-4 w-full rounded-md bg-gray-50 px-4 py-2"
                     />
                     <p className="mb-2">
-                        Phone Number (WhatsApp)
-                        {' '}
+                        Phone Number (WhatsApp){" "}
                         <span className="text-red-600">*</span>
                     </p>
                     <input
@@ -148,9 +134,7 @@ function SignUp() {
                         className="mb-4 w-full rounded-md bg-gray-50 px-4 py-2"
                     />
                     <p className="mb-2">
-                        Address
-                        {' '}
-                        <span className="text-red-600">*</span>
+                        Address <span className="text-red-600">*</span>
                     </p>
                     <input
                         type="text"
@@ -161,9 +145,7 @@ function SignUp() {
                         className="mb-4 w-full rounded-md bg-gray-50 px-4 py-2"
                     />
                     <p className="mb-2">
-                        City
-                        {' '}
-                        <span className="text-red-600">*</span>
+                        City <span className="text-red-600">*</span>
                     </p>
                     <input
                         type="text"
@@ -174,9 +156,7 @@ function SignUp() {
                         className="mb-4 w-full rounded-md bg-gray-50 px-4 py-2"
                     />
                     <p className="mb-2">
-                        Job
-                        {' '}
-                        <span className="text-red-600">*</span>
+                        Job <span className="text-red-600">*</span>
                     </p>
                     <input
                         type="text"
@@ -187,9 +167,7 @@ function SignUp() {
                         className="mb-4 w-full rounded-md bg-gray-50 px-4 py-2"
                     />
                     <p className="mb-2">
-                        Work Place
-                        {' '}
-                        <span className="text-red-600">*</span>
+                        Work Place <span className="text-red-600">*</span>
                     </p>
                     <input
                         type="text"
@@ -201,39 +179,55 @@ function SignUp() {
                     />
                 </Card>
                 <Card className="mb-4 flex w-full flex-col border-t-4 border-t-primary-main">
-                    <h2 className="mb-4 text-lg font-bold">Your Social Media Account</h2>
+                    <h2 className="mb-4 text-lg font-bold">
+                        Your Social Media Account
+                    </h2>
                     <p className="mb-2">Instagram</p>
                     <input
                         type="text"
                         name="detail[instagram_acc]"
-                        defaultValue={inputs?.detail?.instagram_acc || 'instagram.com/'}
+                        defaultValue={
+                            inputs?.detail?.instagram_acc || "instagram.com/"
+                        }
                         className="mb-1 w-full rounded-md bg-gray-50 px-4 py-2"
                     />
-                    <small className="d-block mb-4 text-gray-600">example: instagram.com/dqlab</small>
+                    <small className="d-block mb-4 text-gray-600">
+                        example: instagram.com/dqlab
+                    </small>
                     <p className="mb-2">Tiktok</p>
                     <input
                         type="text"
                         name="detail[tiktok_acc]"
-                        defaultValue={inputs?.detail?.tiktok_acc || 'tiktok.com/@'}
+                        defaultValue={
+                            inputs?.detail?.tiktok_acc || "tiktok.com/@"
+                        }
                         className="mb-1 w-full rounded-md bg-gray-50 px-4 py-2"
                     />
-                    <small className="d-block mb-4 text-gray-600">example: tiktok.com/@dqlab</small>
+                    <small className="d-block mb-4 text-gray-600">
+                        example: tiktok.com/@dqlab
+                    </small>
                     <p className="mb-2">youtube</p>
                     <input
                         type="text"
                         name="detail[youtube_acc]"
-                        defaultValue={inputs?.detail?.youtube_acc || 'youtube.com/@'}
+                        defaultValue={
+                            inputs?.detail?.youtube_acc || "youtube.com/@"
+                        }
                         className="mb-1 w-full rounded-md bg-gray-50 px-4 py-2"
                     />
-                    <small className="d-block mb-4 text-gray-600">example: youtube.com/@dqlab</small>
+                    <small className="d-block mb-4 text-gray-600">
+                        example: youtube.com/@dqlab
+                    </small>
                 </Card>
                 <Card className="mb-4 flex w-full flex-col border-t-4 border-t-primary-main">
-                    <h2 className="mb-1 text-lg font-bold">Bank Account Information</h2>
-                    <p className="mb-4 text-sm text-slate-500">For withdrawal purpose</p>
+                    <h2 className="mb-1 text-lg font-bold">
+                        Bank Account Information
+                    </h2>
+                    <p className="mb-4 text-sm text-slate-500">
+                        For withdrawal purpose
+                    </p>
                     <p className="mb-2">
-                        Bank Name
-                        {' '}
-                        <span className="text-red-600">*</span>
+                        Bank Name <span className="text-red-600">*</span>
                     </p>
                     <input
                         type="text"
@@ -244,8 +238,7 @@ function SignUp() {
                         className="mb-4 w-full rounded-md bg-gray-50 px-4 py-2"
                     />
                     <p className="mb-2">
-                        Bank Account Number
-                        {' '}
+                        Bank Account Number{" "}
                         <span className="text-red-600">*</span>
                     </p>
                     <input
@@ -268,8 +261,12 @@ function SignUp() {
                 </Card>
                 <Card className="mb-4 flex w-full flex-col border-t-4 border-t-primary-main">
                     <h2 className="mb-1 text-2xl font-bold">Question</h2>
-                    <p className="mb-4 text-sm text-slate-500">Other questions for help us</p>
-                    <p className="mb-2">How did you know DQLab Affiliate Program ?</p>
+                    <p className="mb-4 text-sm text-slate-500">
+                        Other questions for help us
+                    </p>
+                    <p className="mb-2">
+                        How did you know DQLab Affiliate Program ?
+                    </p>
                     <div className="mb-2 flex items-center">
                         <input
                             id="question-1-answer-1"
@@ -278,10 +275,7 @@ function SignUp() {
                             name="detail[question]-1"
                             className="h-4 w-4"
                         />
-                        <label
-                            htmlFor="question-1-answer-1"
-                            className="ml-2"
-                        >
+                        <label htmlFor="question-1-answer-1" className="ml-2">
                             Website DQLab.id
                         </label>
                     </div>
@@ -293,10 +287,7 @@ function SignUp() {
                             name="detail[question]-1"
                             className="h-4 w-4"
                         />
-                        <label
-                            htmlFor="question-1-answer-2"
-                            className="ml-2"
-                        >
+                        <label htmlFor="question-1-answer-2" className="ml-2">
                             Broadcast from DQLab
                         </label>
                     </div>
@@ -308,10 +299,7 @@ function SignUp() {
                             name="detail[question]-1"
                             className="h-4 w-4"
                         />
-                        <label
-                            htmlFor="question-1-answer-3"
-                            className="ml-2"
-                        >
+                        <label htmlFor="question-1-answer-3" className="ml-2">
                             Instagram DQLab
                         </label>
                     </div>
@@ -323,10 +311,7 @@ function SignUp() {
                             name="detail[question]-1"
                             className="h-4 w-4"
                         />
-                        <label
-                            htmlFor="question-1-answer-4"
-                            className="ml-2"
-                        >
+                        <label htmlFor="question-1-answer-4" className="ml-2">
                             Tiktok DQLab
                         </label>
                     </div>
@@ -338,17 +323,18 @@ function SignUp() {
                             name="detail[question]-1"
                             className="h-4 w-4"
                         />
-                        <label
-                            htmlFor="question-1-answer-5"
-                            className="ml-2"
-                        >
+                        <label htmlFor="question-1-answer-5" className="ml-2">
                             Relatives/Friend/Colleague
                         </label>
                     </div>
                 </Card>
                 <Card className="mb-4 flex w-full flex-col border-t-4 border-t-primary-main">
-                    <h2 className="mb-1 text-2xl font-bold">Human Verification</h2>
-                    <p className="mb-4 text-sm text-slate-500">Just click the checkbox, and complete the questions</p>
+                    <h2 className="mb-1 text-2xl font-bold">
+                        Human Verification
+                    </h2>
+                    <p className="mb-4 text-sm text-slate-500">
+                        Just click the checkbox, and complete the questions
+                    </p>
                     <div className="relative flex w-full items-center">
                         <input
                             type="checkbox"
@@ -378,12 +364,8 @@ function SignUp() {
                         Submit
                     </Button>
                     <span>
-                        Already have an account ?
-                        {' '}
-                        <NavLink
-                            to="/sign-in"
-                            className="underline"
-                        >
+                        Already have an account ?{" "}
+                        <NavLink to="/sign-in" className="underline">
                             sign in here
                         </NavLink>
                     </span>

@@ -1,6 +1,6 @@
-import './style.css';
-import React from 'react';
-import Str from '@/utilities/StringHelper';
+import "./style.css";
+import React from "react";
+import Str from "@/utilities/Str";
 
 function List(props) {
     const { className, ...attrs } = props;
@@ -17,7 +17,7 @@ function List(props) {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className={Str.joinClassName('hero-icon', className)}
+            className={Str.joinClassName("hero-icon", className)}
         >
             <path
                 strokeLinecap="round"

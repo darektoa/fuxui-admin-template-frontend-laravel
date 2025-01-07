@@ -1,6 +1,6 @@
-import './style.css';
-import React from 'react';
-import Str from '@/utilities/StringHelper';
+import "./style.css";
+import React from "react";
+import Str from "@/utilities/Str";
 
 function Clipboard(props) {
     const { className, ...attrs } = props;
@@ -17,17 +17,10 @@ function Clipboard(props) {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className={Str.joinClassName('feather-icon', className)}
+            className={Str.joinClassName("feather-icon", className)}
         >
             <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
-            <rect
-                x="8"
-                y="2"
-                width="8"
-                height="4"
-                rx="1"
-                ry="1"
-            />
+            <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
         </svg>
     );
 }
