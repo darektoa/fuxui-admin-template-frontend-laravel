@@ -1,5 +1,5 @@
 import { pdf } from "@react-pdf/renderer";
-import Layout from "./layout";
+import Layout from "./Layout";
 import React from "react";
 
 async function layoutToBlob(data) {
